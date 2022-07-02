@@ -2,7 +2,54 @@ import React from "react";
 import "./MooseBankHero.css";
 import Countdown from "react-countdown";
 
+import { useMoralis } from "react-moralis";
+import { ABI } from "./ABI";
+import { CONFIG } from "./../../config";
+
+import { notifyError, notifyInfo, notifySuccess } from "./ToastFunction";
+import { ToastContainer } from "react-toastify";
+
 const MooseBankHero = () => {
+  const { Moralis } = useMoralis();
+
+  const claimBonusTrax = async () => {
+    let options = {
+      abi: ABI.oneTimeClaim,
+      functionName: "oneTimeClaim",
+      chain: CONFIG.chainID,
+      contractAddress: CONFIG.smart_contract_moosetrax,
+    };
+
+    try {
+      notifyInfo("Your transaction has started");
+      const mintTransaction = await Moralis.executeFunction(options);
+      console.log(
+        "mintTransaction : ",
+        mintTransaction,
+        "mintTransactionhash : ",
+        mintTransaction.hash
+      );
+      // toastify #1
+      notifyInfo("Please wait for confirmation");
+
+      await mintTransaction.wait();
+
+      // toastify #2
+      notifySuccess("Successfully Claimed Bonus Trax");
+    } catch (err) {
+      console.log("mintError=>", err);
+
+      if (err?.message?.includes("Claiming reward has been paused")) {
+        notifyError("Claiming reward is Paused at the moment");
+      } else if (err?.message?.includes("Already Claimed")) {
+        notifyError("You have already claimed your bonus Trax");
+      } else {
+        // toastify #3
+        notifyError("There is some error Please Try Again Later");
+      }
+    }
+  };
+
   const renderer = ({ days, hours, minutes, seconds, completed }) => {
     // Render a countdown
     return (
@@ -30,6 +77,18 @@ const MooseBankHero = () => {
   };
   return (
     <div className=" lg:px-32">
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        theme="dark"
+        pauseOnHover
+      />
       <div>
         <div className="flex justify-center">
           <div>
@@ -57,7 +116,10 @@ const MooseBankHero = () => {
             </div>
 
             <div className="flex justify-center separator ">
-              <button className="dashboard px-4 py-3 font-semibold ">
+              <button
+                onClick={claimBonusTrax}
+                className="dashboard px-4 py-3 font-semibold "
+              >
                 CLAIM BONUS TRAX
               </button>
             </div>

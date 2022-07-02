@@ -8,43 +8,110 @@ import Image6 from "../MooseBank/images/500k.webp";
 import Image7 from "../MooseBank/images/1m.webp";
 import Image8 from "../MooseBank/images/5m.webp";
 import "../MooseBank/TraxPrax.css";
+
+//
+import { useMoralis } from "react-moralis";
+import { ABI } from "./ABI";
+import { CONFIG } from "./../../config";
+//
+import { notifyError, notifyInfo, notifySuccess } from "./ToastFunction";
+import { ToastContainer } from "react-toastify";
+
 const TraxPrax = () => {
   const CardData = [
     {
       image: Image1,
       price: 0.016,
+      amount: 25000,
     },
     {
       image: Image2,
       price: 0.03,
+      amount: 50000,
     },
     {
       image: Image3,
       price: 0.055,
+      amount: 100000,
     },
     {
       image: Image4,
       price: 0.063,
+      amount: 125000,
     },
     {
       image: Image5,
       price: 0.11,
+      amount: 250000,
     },
     {
       image: Image6,
       price: 0.2,
+      amount: 500000,
     },
     {
       image: Image7,
       price: 0.35,
+      amount: 1000000,
     },
     {
       image: Image8,
       price: 1.5,
+      amount: 5000000,
     },
   ];
+  const { Moralis } = useMoralis();
+
+  const buyTrax = async (amt, prc) => {
+    const amount = Number(amt);
+    const price = Number(prc);
+
+    let options = {
+      chain: CONFIG.chainID,
+      contractAddress: CONFIG.smart_contract_moosetrax,
+      functionName: "buyTraxPax",
+      abi: ABI.buyTraxPax,
+      params: {
+        _amount: amount,
+      },
+      msgValue: Moralis.Units.ETH(price),
+    };
+
+    try {
+      const mintTransaction = await Moralis.executeFunction(options);
+      console.log(
+        "mintTransaction=>",
+        mintTransaction,
+        "mintTransactionhash",
+        mintTransaction.hash
+      );
+      notifyInfo("Please wait for confirmation");
+      await mintTransaction.wait();
+      notifySuccess("Please reload after sometime to get the minted NFT");
+    } catch (e) {
+      console.log("mintError=>", e);
+      if (e?.message?.includes("Claiming reward has been paused")) {
+        notifyError("Buying Trax is Paused at the moment");
+      } else {
+        notifyError("Oops some problem occured! Please try again later!");
+      }
+    }
+  };
+
   return (
     <div className="trax_prax_bg">
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        theme="dark"
+        pauseOnHover
+      />
       <div className="flex justify-center mb-10 mt-10">
         <div className=" w-9/12">
           <h5 className="text-center text-xl text-white">
@@ -68,7 +135,12 @@ const TraxPrax = () => {
                 <div className="flex justify-center">
                   <img className=" w-full h-40" src={data.image} alt="" />
                 </div>
-                <button className="traxPrice ">{data.price} ETH</button>
+                <button
+                  onClick={() => buyTrax(data.amount, data.price)}
+                  className="traxPrice "
+                >
+                  {data.price} ETH
+                </button>
               </div>
             );
           })}

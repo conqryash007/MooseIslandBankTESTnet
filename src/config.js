@@ -11,8 +11,10 @@
 const MORALIS_SERVER = {
   //mainnet_AppID: `tNwRRjAA9TwIg40TAu8c3PYCFELFQnKiGJtWvVIp`,
   //mainnet_serverURL: `https://fysfo7qo74zu.usemoralis.com:2053/server`,
-  mainnet_AppID: `Gxt5aS8FpZHnFZHX53dxIBvjxdOuIltLN7x5NlH7`,
-  mainnet_serverURL: `https://cntdhts5tzqw.usemoralis.com:2053/server`,
+  // mainnet_AppID: `Gxt5aS8FpZHnFZHX53dxIBvjxdOuIltLN7x5NlH7`,
+  // mainnet_serverURL: `https://cntdhts5tzqw.usemoralis.com:2053/server`,
+  mainnet_AppID: `rlJh20MP66AQeucpV6L2vZoyZgeVwtHir7n1v88e`,
+  mainnet_serverURL: `https://snavu03jrcte.usemoralis.com:2053/server`,
   ropsten_AppID: `tExjBBJ1s8aHSk1idnOJJOrjJON007ziPVLk88fn`,
   ropsten_serverURL: `https://xltiotldo06b.usemoralis.com:2053/server`,
   rinkyby_AppID: `L97H26Xa0reuD18xHrU1P39U3Q9irLLsWCACP9wK`,
@@ -38,8 +40,8 @@ let ETHERSCAN_BASE_URI = "";
 // NETWORK SWITCHER
 // NETWORK SWITCHER
 
-// let network = "rinkeby";
-let network = "mainnet";
+let network = "rinkeby";
+// let network = "mainnet";
 
 // NETWORK SWITCHER
 // NETWORK SWITCHER
@@ -55,6 +57,7 @@ let moralis_contract_unstaked = "";
 
 let moralis_contract_hideout = "";
 let moralis_contract_alphaherd = "";
+let moralis_contract_moosetrax = "";
 
 if (network === "mainnet") {
   moralis_app_ID = MORALIS_SERVER.mainnet_AppID;
@@ -69,6 +72,8 @@ if (network === "mainnet") {
   moralis_contract_hideout = "0x1A1B51eA853d24649E7f30CeB2E9aF85Cb04a24a";
 
   moralis_contract_alphaherd = "0x24A913B00cbC8C3c747B19C7944E4dA26da1130b";
+
+  moralis_contract_moosetrax = "";
 
   // URI For Smart Collections
   SC_1_JSON_URI =
@@ -113,10 +118,10 @@ if (network === "mainnet") {
   //moralis_contract_unstaked = "0x3258593631Cb75Ce3282B04FE4075321417ECefB"
   // moralis_contract_unstaked = "0x7c101f09Cf2dCB7C11E979B294CcF0e111d7Cc35" // New Unstake Contract
   moralis_contract_unstaked = "0xFFB04E08A254a07AA7254cD839889C5483b727Ef"; // New Unstake Contract
-
   moralis_contract_hideout = "0xaa32d85be329cDe7619666cF4b2C48FEbd6A094c";
 
   moralis_contract_alphaherd = "0xCBc875e4b1FcEA5b0F4BeE302b54D5ceB7Ba34aE";
+  moralis_contract_moosetrax = "0x2F91e35d43465aBecCcf65EDAC6e09b2F974E844";
 
   // URI For Smart Collections
   SC_1_JSON_URI =
@@ -159,6 +164,9 @@ const CONFIG = {
   smart_contract_unstaked: moralis_contract_unstaked,
   smart_contract_hideout: moralis_contract_hideout,
   smart_contract_alphaherd: moralis_contract_alphaherd,
+  smart_contract_moosetrax: moralis_contract_moosetrax,
+  test_serverUrl: "https://0xzjwzdbbkel.usemoralis.com:2053/server",
+  test_appId: "TyeNFHSscgGgPcO2e0oDxuzDWo72tLF80MboERhI",
   chainID: chainID,
   URI: URI,
 };
