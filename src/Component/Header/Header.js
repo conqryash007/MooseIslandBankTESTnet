@@ -7,7 +7,14 @@ import Web3 from "web3/dist/web3.min.js";
 const Header = () => {
   const [buttonText, setButtonText] = useState("Connect");
 
-  const { authenticate, isAuthenticated, account, Moralis } = useMoralis();
+  const {
+    authenticate,
+    isAuthenticated,
+    account,
+    Moralis,
+    enableWeb3,
+    isWeb3Enabled,
+  } = useMoralis();
   useEffect(() => {
     if (account) {
       let str = account;
@@ -32,16 +39,13 @@ const Header = () => {
     }
 
     if (!isAuthenticated && !account && flag === 0) {
-      await authenticate({ signingMessage: "Log in using Moralis" })
-        .then(function (user) {
-          console.log("logged in user:", user);
-          console.log(user?.get("ethAddress"));
-          let str = account;
-          setButtonText(`${str.substring(0, 6)}..${str.slice(-2)}`);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+      const user = await authenticate({
+        provider: "walletconnect",
+        chainId: 1,
+        mobileLinks: ["metamask"],
+        signingMessage: "Welcome!",
+      });
+      console.log(user);
     } else {
       if (account) {
         let str = account;
@@ -49,6 +53,13 @@ const Header = () => {
       }
     }
   };
+
+  useEffect(() => {
+    if (!isWeb3Enabled && isAuthenticated) {
+      enableWeb3({ provider: "walletconnect", chainId: 1 });
+      console.log("web3 activated");
+    }
+  }, [isWeb3Enabled, isAuthenticated, enableWeb3]);
 
   return (
     <div className="navbar header  px-10">
