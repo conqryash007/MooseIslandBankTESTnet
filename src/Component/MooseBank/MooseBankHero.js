@@ -1,6 +1,7 @@
 import React from "react";
 import "./MooseBankHero.css";
 import Countdown from "react-countdown";
+import CountUp from "react-countup";
 
 import { useMoralis } from "react-moralis";
 import { FULLABI } from "./FULLABI";
@@ -111,7 +112,9 @@ const MooseBankHero = () => {
           <div className="grid lg:grid-cols-3  w-9/12 gap-y-5">
             <div>
               <div className="flex justify-center">
-                <p className="text-5xl font-semibold text-white">10,000,000</p>
+                <p className="text-5xl font-semibold text-white">
+                  <CountUp end={10000000} />
+                </p>
               </div>
               <p className="text-center">Total Bonus Trax</p>
             </div>
@@ -126,7 +129,9 @@ const MooseBankHero = () => {
             </div>
             <div>
               <div className="flex justify-center">
-                <p className="text-5xl font-semibold text-white">42,543</p>
+                <p className="text-5xl font-semibold text-white">
+                  <CountUp end={42543} />
+                </p>
               </div>
               <p className=" text-center">TRAX Tokens Burned</p>
             </div>

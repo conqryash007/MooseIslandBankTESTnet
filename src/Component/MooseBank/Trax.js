@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import CountUp from "react-countup";
 import "./Trax.css";
 
 //
@@ -12,10 +13,18 @@ const Trax = ({ ownedTrax, available, perDayTrax }) => {
   const { Moralis } = useMoralis();
 
   const [disableBtn, setDisableBtn] = useState(false);
+  const [disableLowBal, setDisableLowBal] = useState(true);
+
+  useEffect(() => {
+    if (available > 0) {
+      setDisableLowBal(false);
+    }
+  }, [available]);
 
   const withdrawTrax = async () => {
     setDisableBtn(true);
-    const amount = Number(available);
+    let amount = Number(available);
+    amount = Math.floor(amount);
 
     let options = {
       chain: CONFIG.chainID,
@@ -67,19 +76,23 @@ const Trax = ({ ownedTrax, available, perDayTrax }) => {
         <div className="grid grid-cols-1 lg:grid-cols-3  w-9/12 gap-y-10">
           <div>
             <div className="flex justify-center">
-              <p className="text-5xl font-semibold text-white">{perDayTrax}</p>
+              <p className="text-5xl font-semibold text-white">
+                <CountUp end={Math.floor(perDayTrax)} />
+              </p>
             </div>
             <p className="text-center">TRAX Earned Per Day Trax</p>
           </div>
 
           <div className="separator">
             <div className="flex justify-center">
-              <p className="text-5xl font-semibold text-white">{available}</p>
+              <p className="text-5xl font-semibold text-white">
+                <CountUp end={Math.floor(available)} />
+              </p>
             </div>
             <p className=" text-center">Total TRAX Owned</p>
             <div className="flex justify-center">
               <button
-                disabled={disableBtn}
+                disabled={disableBtn || disableLowBal}
                 onClick={withdrawTrax}
                 className="dashboard px-10 py-5 font-semibold "
               >
@@ -89,7 +102,9 @@ const Trax = ({ ownedTrax, available, perDayTrax }) => {
           </div>
           <div>
             <div className="flex justify-center">
-              <p className="text-5xl font-semibold text-white">{ownedTrax}</p>
+              <p className="text-5xl font-semibold text-white">
+                <CountUp end={Math.floor(ownedTrax)} />
+              </p>
             </div>
             <p className=" text-center">Total TRAX Owned</p>
           </div>
