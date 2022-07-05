@@ -11,11 +11,10 @@ import "../MooseBank/TraxPrax.css";
 
 //
 import { useMoralis } from "react-moralis";
-import { ABI } from "./ABI";
+import { FULLABI } from "./FULLABI";
 import { CONFIG } from "./../../config";
 //
 import { notifyError, notifyInfo, notifySuccess } from "./ToastFunction";
-import { ToastContainer } from "react-toastify";
 
 const TraxPrax = () => {
   const CardData = [
@@ -62,22 +61,19 @@ const TraxPrax = () => {
   ];
   const { Moralis } = useMoralis();
 
-  const buyTrax = async (amt, prc) => {
-    const amount = Number(amt);
+  const buyTrax = async (prc) => {
     const price = Number(prc);
 
     let options = {
       chain: CONFIG.chainID,
       contractAddress: CONFIG.smart_contract_moosetrax,
       functionName: "buyTraxPax",
-      abi: ABI.buyTraxPax,
-      params: {
-        _amount: amount,
-      },
+      abi: FULLABI,
       msgValue: Moralis.Units.ETH(price),
     };
 
     try {
+      notifyInfo("Your transaction has started");
       const mintTransaction = await Moralis.executeFunction(options);
       console.log(
         "mintTransaction=>",
@@ -90,6 +86,7 @@ const TraxPrax = () => {
       notifySuccess("Please reload after sometime to get the minted NFT");
     } catch (e) {
       console.log("mintError=>", e);
+      console.log("traxPAx -----");
       if (e?.message?.includes("Claiming reward has been paused")) {
         notifyError("Buying Trax is Paused at the moment");
       } else {
@@ -98,20 +95,46 @@ const TraxPrax = () => {
     }
   };
 
+  // TEMP METHOD UNDER REVIEW
+  // const buyTrax = async (amt, prc) => {
+  //   const amount = Number(amt);
+  //   const price = Number(prc);
+
+  //   let options = {
+  //     chain: CONFIG.chainID,
+  //     contractAddress: CONFIG.smart_contract_moosetrax,
+  //     functionName: "buyTraxPax",
+  //     abi: ABI.buyTraxPax,
+  //     params: {
+  //       _amount: amount,
+  //     },
+  //     msgValue: Moralis.Units.ETH(price),
+  //   };
+
+  //   try {
+  //     const mintTransaction = await Moralis.executeFunction(options);
+  //     console.log(
+  //       "mintTransaction=>",
+  //       mintTransaction,
+  //       "mintTransactionhash",
+  //       mintTransaction.hash
+  //     );
+  //     notifyInfo("Please wait for confirmation");
+  //     await mintTransaction.wait();
+  //     notifySuccess("Please reload after sometime to get the minted NFT");
+  //   } catch (e) {
+  //     console.log("mintError=>", e);
+  //     console.log("traxPAx -----");
+  //     if (e?.message?.includes("Claiming reward has been paused")) {
+  //       notifyError("Buying Trax is Paused at the moment");
+  //     } else {
+  //       notifyError("Oops some problem occured! Please try again later!");
+  //     }
+  //   }
+  // };
+
   return (
     <div className="trax_prax_bg">
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        theme="dark"
-        pauseOnHover
-      />
       <div className="flex justify-center mb-10 mt-10">
         <div className=" w-9/12">
           <h5 className="text-center text-xl text-white">
@@ -136,7 +159,8 @@ const TraxPrax = () => {
                   <img className=" w-full h-40" src={data.image} alt="" />
                 </div>
                 <button
-                  onClick={() => buyTrax(data.amount, data.price)}
+                  // onClick={() => buyTrax(data.amount, data.price)}
+                  onClick={() => buyTrax(data.price)}
                   className="traxPrice "
                 >
                   {data.price} ETH

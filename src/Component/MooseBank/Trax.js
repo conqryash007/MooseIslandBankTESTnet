@@ -3,7 +3,7 @@ import "./Trax.css";
 
 //
 import { useMoralis } from "react-moralis";
-import { ABI } from "./ABI";
+import { FULLABI } from "./FULLABI";
 import { CONFIG } from "./../../config";
 //
 import { notifyError, notifyInfo, notifySuccess } from "./ToastFunction";
@@ -21,7 +21,7 @@ const Trax = ({ ownedTrax, available, perDayTrax }) => {
       chain: CONFIG.chainID,
       contractAddress: CONFIG.smart_contract_moosetrax,
       functionName: "claimReward",
-      abi: ABI.claimReward,
+      abi: FULLABI,
       params: {
         _amount: amount,
       },
@@ -42,6 +42,7 @@ const Trax = ({ ownedTrax, available, perDayTrax }) => {
       notifySuccess("Please reload after sometime to get the minted tokens");
     } catch (e) {
       console.log("mintError=>", e);
+      console.log("TRAX-----");
       if (e?.message?.includes("Claiming reward has been paused")) {
         notifyError("Claiming Trax is Paused at the moment");
       } else {

@@ -1,5 +1,13 @@
 const FULLABI = [
-  { inputs: [], stateMutability: "nonpayable", type: "constructor" },
+  {
+    inputs: [
+      { internalType: "address", name: "_society", type: "address" },
+      { internalType: "address", name: "_moose", type: "address" },
+      { internalType: "address", name: "_minimoose", type: "address" },
+    ],
+    stateMutability: "nonpayable",
+    type: "constructor",
+  },
   {
     anonymous: false,
     inputs: [
@@ -23,6 +31,20 @@ const FULLABI = [
       },
     ],
     name: "Approval",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      { indexed: true, internalType: "address", name: "user", type: "address" },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "operator",
+        type: "address",
+      },
+    ],
+    name: "OperatorSet",
     type: "event",
   },
   {
@@ -116,8 +138,8 @@ const FULLABI = [
   },
   {
     inputs: [
+      { internalType: "address", name: "user", type: "address" },
       { internalType: "uint256", name: "_amount", type: "uint256" },
-      { internalType: "address", name: "_user", type: "address" },
     ],
     name: "burn",
     outputs: [],
@@ -125,7 +147,7 @@ const FULLABI = [
     type: "function",
   },
   {
-    inputs: [{ internalType: "uint256", name: "_amount", type: "uint256" }],
+    inputs: [],
     name: "buyTraxPax",
     outputs: [],
     stateMutability: "payable",
@@ -177,13 +199,6 @@ const FULLABI = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "heroBoxContract",
-    outputs: [{ internalType: "contract IHeroBox", name: "", type: "address" }],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
     inputs: [
       { internalType: "address", name: "spender", type: "address" },
       { internalType: "uint256", name: "addedValue", type: "uint256" },
@@ -191,6 +206,27 @@ const FULLABI = [
     name: "increaseAllowance",
     outputs: [{ internalType: "bool", name: "", type: "bool" }],
     stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "_operator", type: "address" }],
+    name: "isOperator",
+    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "minimoose",
+    outputs: [{ internalType: "address", name: "", type: "address" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "moose",
+    outputs: [{ internalType: "address", name: "", type: "address" }],
+    stateMutability: "view",
     type: "function",
   },
   {
@@ -205,6 +241,13 @@ const FULLABI = [
     name: "oneTimeClaim",
     outputs: [],
     stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "oneTimeClain",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
     type: "function",
   },
   {
@@ -229,20 +272,17 @@ const FULLABI = [
     type: "function",
   },
   {
-    inputs: [],
-    name: "serumContract",
-    outputs: [{ internalType: "contract ISerum", name: "", type: "address" }],
-    stateMutability: "view",
+    inputs: [{ internalType: "address", name: "_operator", type: "address" }],
+    name: "setOperator",
+    outputs: [],
+    stateMutability: "nonpayable",
     type: "function",
   },
   {
-    inputs: [
-      { internalType: "address", name: "_heroBoxContract", type: "address" },
-      { internalType: "address", name: "_serumcontract", type: "address" },
-    ],
-    name: "setUpgrades",
-    outputs: [],
-    stateMutability: "nonpayable",
+    inputs: [],
+    name: "society",
+    outputs: [{ internalType: "address", name: "", type: "address" }],
+    stateMutability: "view",
     type: "function",
   },
   {
@@ -283,6 +323,13 @@ const FULLABI = [
   {
     inputs: [{ internalType: "address", name: "newOwner", type: "address" }],
     name: "transferOwnership",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "withdrawEthers",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",

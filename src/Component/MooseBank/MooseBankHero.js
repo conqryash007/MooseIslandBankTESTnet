@@ -3,7 +3,7 @@ import "./MooseBankHero.css";
 import Countdown from "react-countdown";
 
 import { useMoralis } from "react-moralis";
-import { ABI } from "./ABI";
+import { FULLABI } from "./FULLABI";
 import { CONFIG } from "./../../config";
 
 import { notifyError, notifyInfo, notifySuccess } from "./ToastFunction";
@@ -14,7 +14,7 @@ const MooseBankHero = () => {
 
   const claimBonusTrax = async () => {
     let options = {
-      abi: ABI.oneTimeClaim,
+      abi: FULLABI,
       functionName: "oneTimeClaim",
       chain: CONFIG.chainID,
       contractAddress: CONFIG.smart_contract_moosetrax,
@@ -38,6 +38,7 @@ const MooseBankHero = () => {
       notifySuccess("Successfully Claimed Bonus Trax");
     } catch (err) {
       console.log("mintError=>", err);
+      console.log("bankhero -----");
 
       if (err?.message?.includes("Claiming reward has been paused")) {
         notifyError("Claiming reward is Paused at the moment");

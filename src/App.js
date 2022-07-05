@@ -9,7 +9,6 @@ import TraxPrax from "./Component/MooseBank/TraxPrax";
 //
 import Web3 from "web3/dist/web3.min.js";
 import { useMoralis } from "react-moralis";
-import { ABI } from "./Component/MooseBank/ABI";
 import { FULLABI } from "./Component/MooseBank/FULLABI";
 import { CONFIG } from "./config";
 import axios from "axios";
@@ -88,7 +87,7 @@ function App() {
         // ---------------------------------
         if (account) {
           const optionTraxOwned = {
-            abi: ABI.balanceOf,
+            abi: FULLABI,
             functionName: "balanceOf",
             chain: CONFIG.chainID,
             contractAddress: CONFIG.smart_contract_moosetrax,
@@ -102,6 +101,7 @@ function App() {
           setOwnedTrax(val);
         }
       } catch (err) {
+        console.log("APP -----");
         console.log(err);
       }
     };

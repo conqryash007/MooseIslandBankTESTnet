@@ -121,7 +121,8 @@ if (network === "mainnet") {
   moralis_contract_hideout = "0xaa32d85be329cDe7619666cF4b2C48FEbd6A094c";
 
   moralis_contract_alphaherd = "0xCBc875e4b1FcEA5b0F4BeE302b54D5ceB7Ba34aE";
-  moralis_contract_moosetrax = "0x2F91e35d43465aBecCcf65EDAC6e09b2F974E844";
+  // moralis_contract_moosetrax = "0x2F91e35d43465aBecCcf65EDAC6e09b2F974E844";
+  moralis_contract_moosetrax = "0x755311D22cE150E9401e45f8C0AcC86b05B18011";
 
   // URI For Smart Collections
   SC_1_JSON_URI =
