@@ -130,7 +130,7 @@ const MooseBankHero = () => {
             <div>
               <div className="flex justify-center">
                 <p className="text-5xl font-semibold text-white">
-                  <CountUp end={42543} />
+                  <CountUp end={0} />
                 </p>
               </div>
               <p className=" text-center">TRAX Tokens Burned</p>
