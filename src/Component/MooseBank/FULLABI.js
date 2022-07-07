@@ -4,6 +4,16 @@ const FULLABI = [
       { internalType: "address", name: "_society", type: "address" },
       { internalType: "address", name: "_moose", type: "address" },
       { internalType: "address", name: "_minimoose", type: "address" },
+      {
+        internalType: "uint256",
+        name: "_maxOneTimeClaimAmount",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "_maxClaimRewardAmount",
+        type: "uint256",
+      },
     ],
     stateMutability: "nonpayable",
     type: "constructor",
@@ -107,6 +117,15 @@ const FULLABI = [
       },
     ],
     name: "TraxBought",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      { indexed: true, internalType: "address", name: "user", type: "address" },
+      { indexed: true, internalType: "bool", name: "flip", type: "bool" },
+    ],
+    name: "whitelistAddress",
     type: "event",
   },
   {
@@ -286,13 +305,6 @@ const FULLABI = [
   },
   {
     inputs: [],
-    name: "oneTimeClain",
-    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [],
     name: "owner",
     outputs: [{ internalType: "address", name: "", type: "address" }],
     stateMutability: "view",
@@ -315,6 +327,20 @@ const FULLABI = [
   {
     inputs: [{ internalType: "address", name: "_operator", type: "address" }],
     name: "setOperator",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "uint256", name: "maxAmount", type: "uint256" }],
+    name: "setmaxClaimRewardAmount",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "uint256", name: "maxAmount", type: "uint256" }],
+    name: "setmaxOneTimeClaimAmount",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
@@ -366,6 +392,23 @@ const FULLABI = [
     name: "transferOwnership",
     outputs: [],
     stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "address", name: "_sus", type: "address" },
+      { internalType: "bool", name: "_flip", type: "bool" },
+    ],
+    name: "whiteListAddress",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "", type: "address" }],
+    name: "whitelistedAddress",
+    outputs: [{ internalType: "bool", name: "", type: "bool" }],
+    stateMutability: "view",
     type: "function",
   },
   {
