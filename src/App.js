@@ -19,6 +19,9 @@ function App() {
   const [, setAlreadyClaimed] = useState(0);
   const [availableClaim, setAvailableClaim] = useState(0);
   const [ownedTrax, setOwnedTrax] = useState(0);
+  const [oneTimeClaim, setOneTimeClaim] = useState(0);
+  const [accountHash, setAccountHash] = useState(null);
+  const [claim, setHasClaimed] = useState(false);
 
   const { Moralis, account } = useMoralis();
 
@@ -65,12 +68,19 @@ function App() {
         setPerDayTrax(traxRewardPerDay);
 
         if (account) {
+          // ---------HAS CLAIMED-------------
+          // ---------------------------------
+          const hasClaimed = await myContract.methods
+            .hasClaimed(account)
+            .call();
+          setHasClaimed(hasClaimed);
+
           // ---------CLAIMABLE COUNT---------
           // ---------------------------------
           const url = `https://trax-etherscan-api.herokuapp.com/api/${account}`;
           const response = await axios.get(url);
 
-          const finalResponse = Math.floor(response.data.finalTotalTrax);
+          const finalResponse = Number(response.data.finalTotalTrax);
 
           setTotalTraxClaim(finalResponse);
 
@@ -79,8 +89,35 @@ function App() {
           const res = await myContract.methods.rewards(account).call();
           const finalRes = Number(web3.utils.fromWei(res));
 
+          // ---------ONE TIME CLAIMED TRAX COUNT------
+          // ------------------------------------------
+          const optionBonus = {
+            abi: FULLABI,
+            functionName: "oneTimeClaimAmount",
+            chain: CONFIG.chainID,
+            contractAddress: CONFIG.smart_contract_moosetrax,
+            params: {
+              account: account,
+            },
+          };
+
+          const bonusVal = await Moralis.executeFunction(optionBonus);
+          const val = Number(Number(parseInt(bonusVal._hex, 16)).toFixed(2));
+
+          // rounding off one time claim
+
+          const oneTime = Number(
+            Number(val + Number(finalResponse - finalRes))
+          ).toFixed(2);
+
+          setOneTimeClaim(oneTime);
           setAlreadyClaimed(finalRes);
           setAvailableClaim(finalResponse - finalRes);
+        }
+
+        if (account) {
+          const hash = web3.utils.soliditySha3(account);
+          setAccountHash(hash);
         }
 
         // ---------TRAX OWNED--------------
@@ -97,7 +134,9 @@ function App() {
           };
 
           const message = await Moralis.executeFunction(optionTraxOwned);
-          const val = parseInt(message._hex, 16) / Math.pow(10, 18);
+          const val = Number(
+            parseInt(message._hex, 16) / Math.pow(10, 18)
+          ).toFixed(2);
           setOwnedTrax(val);
         }
       } catch (err) {
@@ -109,15 +148,21 @@ function App() {
     run();
   }, [account]);
 
-  console.log(ownedTrax, availableClaim, perDayTrax);
+  console.log(ownedTrax, availableClaim, perDayTrax, oneTimeClaim);
 
   return (
     <div>
       <Header></Header>
-      <MooseBankHero></MooseBankHero>
+      <MooseBankHero
+        oneTimeClaimValue={oneTimeClaim}
+        hashedAccount={accountHash}
+        paramClaim={availableClaim}
+        hasClaimed={claim}
+      ></MooseBankHero>
       <Trax
         ownedTrax={ownedTrax}
         available={availableClaim}
+        hashedAccount={accountHash}
         perDayTrax={perDayTrax}
       ></Trax>
       <TraxPrax></TraxPrax>

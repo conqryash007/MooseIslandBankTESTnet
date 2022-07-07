@@ -110,6 +110,20 @@ const FULLABI = [
     type: "event",
   },
   {
+    inputs: [],
+    name: "RewardPerMiniMoose",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "RewardPerMoose",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [
       { internalType: "address", name: "owner", type: "address" },
       { internalType: "address", name: "spender", type: "address" },
@@ -161,7 +175,10 @@ const FULLABI = [
     type: "function",
   },
   {
-    inputs: [{ internalType: "uint256", name: "_amount", type: "uint256" }],
+    inputs: [
+      { internalType: "bytes32", name: "_hash", type: "bytes32" },
+      { internalType: "bytes", name: "b", type: "bytes" },
+    ],
     name: "claimReward",
     outputs: [],
     stateMutability: "nonpayable",
@@ -217,6 +234,20 @@ const FULLABI = [
   },
   {
     inputs: [],
+    name: "maxClaimRewardAmount",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "maxOneTimeClaimAmount",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
     name: "minimoose",
     outputs: [{ internalType: "address", name: "", type: "address" }],
     stateMutability: "view",
@@ -237,10 +268,20 @@ const FULLABI = [
     type: "function",
   },
   {
-    inputs: [],
+    inputs: [
+      { internalType: "bytes32", name: "_hash", type: "bytes32" },
+      { internalType: "bytes", name: "b", type: "bytes" },
+    ],
     name: "oneTimeClaim",
     outputs: [],
     stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "oneTimeClaimAmount",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
     type: "function",
   },
   {

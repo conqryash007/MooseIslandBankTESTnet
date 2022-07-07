@@ -83,7 +83,7 @@ const TraxPrax = () => {
       );
       notifyInfo("Please wait for confirmation");
       await mintTransaction.wait();
-      notifySuccess("Please reload after sometime to get the minted NFT");
+      notifySuccess("Please reload after sometime to get the minted tokens");
     } catch (e) {
       console.log("mintError=>", e);
       console.log("traxPAx -----");
@@ -94,44 +94,6 @@ const TraxPrax = () => {
       }
     }
   };
-
-  // TEMP METHOD UNDER REVIEW
-  // const buyTrax = async (amt, prc) => {
-  //   const amount = Number(amt);
-  //   const price = Number(prc);
-
-  //   let options = {
-  //     chain: CONFIG.chainID,
-  //     contractAddress: CONFIG.smart_contract_moosetrax,
-  //     functionName: "buyTraxPax",
-  //     abi: ABI.buyTraxPax,
-  //     params: {
-  //       _amount: amount,
-  //     },
-  //     msgValue: Moralis.Units.ETH(price),
-  //   };
-
-  //   try {
-  //     const mintTransaction = await Moralis.executeFunction(options);
-  //     console.log(
-  //       "mintTransaction=>",
-  //       mintTransaction,
-  //       "mintTransactionhash",
-  //       mintTransaction.hash
-  //     );
-  //     notifyInfo("Please wait for confirmation");
-  //     await mintTransaction.wait();
-  //     notifySuccess("Please reload after sometime to get the minted NFT");
-  //   } catch (e) {
-  //     console.log("mintError=>", e);
-  //     console.log("traxPAx -----");
-  //     if (e?.message?.includes("Claiming reward has been paused")) {
-  //       notifyError("Buying Trax is Paused at the moment");
-  //     } else {
-  //       notifyError("Oops some problem occured! Please try again later!");
-  //     }
-  //   }
-  // };
 
   return (
     <div className="trax_prax_bg">

@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import CountUp from "react-countup";
 import "./Trax.css";
 
+import DecimalCounter from "./DecimalCounter";
+
 //
 import { useMoralis } from "react-moralis";
 import { FULLABI } from "./FULLABI";
@@ -9,53 +11,64 @@ import { CONFIG } from "./../../config";
 //
 import { notifyError, notifyInfo, notifySuccess } from "./ToastFunction";
 
-const Trax = ({ ownedTrax, available, perDayTrax }) => {
+const Trax = ({ ownedTrax, available, perDayTrax, hashedAccount }) => {
   const { Moralis } = useMoralis();
 
   const [disableBtn, setDisableBtn] = useState(false);
   const [disableLowBal, setDisableLowBal] = useState(true);
 
   useEffect(() => {
-    if (available > 0) {
+    if (available > 1) {
       setDisableLowBal(false);
     }
   }, [available]);
 
   const withdrawTrax = async () => {
-    setDisableBtn(true);
-    let amount = Number(available);
-    amount = Math.floor(amount);
+    if (hashedAccount && available) {
+      setDisableBtn(true);
+      let amount = Number(available);
 
-    let options = {
-      chain: CONFIG.chainID,
-      contractAddress: CONFIG.smart_contract_moosetrax,
-      functionName: "claimReward",
-      abi: FULLABI,
-      params: {
-        _amount: amount,
-      },
-    };
-
-    notifyInfo("The transaction has started");
-
-    try {
-      const mintTransaction = await Moralis.executeFunction(options);
-      console.log(
-        "mintTransaction=>",
-        mintTransaction,
-        "mintTransactionhash",
-        mintTransaction.hash
-      );
-      notifyInfo("Please wait for confirmation");
-      await mintTransaction.wait();
-      notifySuccess("Please reload after sometime to get the minted tokens");
-    } catch (e) {
-      console.log("mintError=>", e);
-      console.log("TRAX-----");
-      if (e?.message?.includes("Claiming reward has been paused")) {
-        notifyError("Claiming Trax is Paused at the moment");
+      // b calculation
+      let hexClaimVal = (amount * 10 ** 18).toString(16);
+      hexClaimVal = `${hexClaimVal}`;
+      if (hexClaimVal.length % 2 !== 0) {
+        hexClaimVal = "0x0" + hexClaimVal;
       } else {
-        notifyError("Oops some problem occured! Please try again later!");
+        hexClaimVal = "0x" + hexClaimVal;
+      }
+
+      let options = {
+        chain: CONFIG.chainID,
+        contractAddress: CONFIG.smart_contract_moosetrax,
+        functionName: "claimReward",
+        abi: FULLABI,
+        params: {
+          _hash: hashedAccount,
+          b: hexClaimVal,
+        },
+      };
+
+      notifyInfo("The transaction has started");
+
+      try {
+        const mintTransaction = await Moralis.executeFunction(options);
+        console.log(
+          "mintTransaction=>",
+          mintTransaction,
+          "mintTransactionhash",
+          mintTransaction.hash
+        );
+        notifyInfo("Please wait for confirmation");
+        await mintTransaction.wait();
+        notifySuccess("Please reload after sometime to get the minted tokens");
+      } catch (e) {
+        console.log("mintError=>", e);
+        console.log("TRAX-----");
+        if (e?.message?.includes("Claiming reward has been paused")) {
+          notifyError("Claiming Trax is Paused at the moment");
+        } else {
+          notifyError("Oops some problem occured! Please try again later!");
+        }
       }
     }
   };
@@ -86,7 +99,7 @@ const Trax = ({ ownedTrax, available, perDayTrax }) => {
           <div className="separator">
             <div className="flex justify-center">
               <p className="text-5xl font-semibold text-white">
-                <CountUp end={Math.floor(available)} />
+                <DecimalCounter value={available} />
               </p>
             </div>
             <p className=" text-center">Total TRAX Owned</p>
@@ -103,7 +116,7 @@ const Trax = ({ ownedTrax, available, perDayTrax }) => {
           <div>
             <div className="flex justify-center">
               <p className="text-5xl font-semibold text-white">
-                <CountUp end={Math.floor(ownedTrax)} />
+                <DecimalCounter value={ownedTrax} />
               </p>
             </div>
             <p className=" text-center">Total TRAX Owned</p>

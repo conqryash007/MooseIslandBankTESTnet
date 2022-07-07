@@ -10,44 +10,65 @@ import { CONFIG } from "./../../config";
 import { notifyError, notifyInfo, notifySuccess } from "./ToastFunction";
 import { ToastContainer } from "react-toastify";
 
-const MooseBankHero = () => {
+const MooseBankHero = ({
+  oneTimeClaimValue,
+  hashedAccount,
+  paramClaim,
+  hasClaimed,
+}) => {
   const { Moralis } = useMoralis();
 
   const claimBonusTrax = async () => {
-    let options = {
-      abi: FULLABI,
-      functionName: "oneTimeClaim",
-      chain: CONFIG.chainID,
-      contractAddress: CONFIG.smart_contract_moosetrax,
-    };
-
-    try {
-      notifyInfo("Your transaction has started");
-      const mintTransaction = await Moralis.executeFunction(options);
-      console.log(
-        "mintTransaction : ",
-        mintTransaction,
-        "mintTransactionhash : ",
-        mintTransaction.hash
-      );
-      // toastify #1
-      notifyInfo("Please wait for confirmation");
-
-      await mintTransaction.wait();
-
-      // toastify #2
-      notifySuccess("Successfully Claimed Bonus Trax");
-    } catch (err) {
-      console.log("mintError=>", err);
-      console.log("bankhero -----");
-
-      if (err?.message?.includes("Claiming reward has been paused")) {
-        notifyError("Claiming reward is Paused at the moment");
-      } else if (err?.message?.includes("Already Claimed")) {
-        notifyError("You have already claimed your bonus Trax");
+    if (paramClaim && hashedAccount) {
+      let hexClaimVal = Number(paramClaim * 10 ** 18).toString(16);
+      hexClaimVal = `${hexClaimVal}`;
+      if (hexClaimVal.length % 2 !== 0) {
+        hexClaimVal = "0x0" + hexClaimVal;
       } else {
-        // toastify #3
-        notifyError("There is some error Please Try Again Later");
+        hexClaimVal = "0x" + hexClaimVal;
+      }
+
+      console.log(paramClaim, hexClaimVal);
+
+      let options = {
+        abi: FULLABI,
+        functionName: "oneTimeClaim",
+        chain: CONFIG.chainID,
+        params: {
+          _hash: hashedAccount,
+          b: hexClaimVal,
+        },
+        contractAddress: CONFIG.smart_contract_moosetrax,
+      };
+
+      try {
+        notifyInfo("Your transaction has started");
+        const mintTransaction = await Moralis.executeFunction(options);
+        console.log(
+          "mintTransaction : ",
+          mintTransaction,
+          "mintTransactionhash : ",
+          mintTransaction.hash
+        );
+        // toastify #1
+        notifyInfo("Please wait for confirmation");
+
+        await mintTransaction.wait();
+
+        // toastify #2
+        notifySuccess("Successfully Claimed Bonus Trax");
+      } catch (err) {
+        console.log("mintError=>", err);
+        console.log("bankhero -----");
+
+        if (err?.message?.includes("Claiming reward has been paused")) {
+          notifyError("Claiming reward is Paused at the moment");
+        } else if (err?.message?.includes("Already Claimed")) {
+          notifyError("You have already claimed your bonus Trax");
+        } else {
+          // toastify #3
+          notifyError("There is some error Please Try Again Later");
+        }
       }
     }
   };
@@ -109,7 +130,7 @@ const MooseBankHero = () => {
           </div>
         </div>
         <div className="flex justify-center mt-10 mb-20">
-          <div className="grid lg:grid-cols-3  w-9/12 gap-y-5">
+          <div className="grid lg:grid-cols-4  w-11/12 gap-y-5">
             <div>
               <div className="flex justify-center">
                 <p className="text-5xl font-semibold text-white">
@@ -119,13 +140,37 @@ const MooseBankHero = () => {
               <p className="text-center">Total Bonus Trax</p>
             </div>
 
-            <div className="flex justify-center separator ">
-              <button
-                onClick={claimBonusTrax}
-                className="dashboard px-4 py-3 font-semibold "
-              >
-                CLAIM BONUS TRAX
-              </button>
+            <div>
+              <div className="flex justify-center ">
+                {hasClaimed ? (
+                  <>
+                    <p className="text-5xl font-semibold text-white ">
+                      CLAIMED
+                    </p>
+                  </>
+                ) : (
+                  <p className="text-5xl font-semibold text-white ">
+                    <CountUp end={Math.floor(oneTimeClaimValue)} />.
+                    {(oneTimeClaimValue - Math.floor(oneTimeClaimValue)) * 100 >
+                      0 &&
+                    (oneTimeClaimValue - Math.floor(oneTimeClaimValue)) * 100 <
+                      10 ? (
+                      `0${Math.floor(
+                        (oneTimeClaimValue - Math.floor(oneTimeClaimValue)) *
+                          100
+                      )}`
+                    ) : (
+                      <CountUp
+                        end={
+                          (oneTimeClaimValue - Math.floor(oneTimeClaimValue)) *
+                          100
+                        }
+                      />
+                    )}
+                  </p>
+                )}
+              </div>
+              <p className=" text-center">TRAX Tokens Earned</p>
             </div>
             <div>
               <div className="flex justify-center">
@@ -134,6 +179,16 @@ const MooseBankHero = () => {
                 </p>
               </div>
               <p className=" text-center">TRAX Tokens Burned</p>
+            </div>
+
+            <div className="flex justify-center separator ">
+              <button
+                disabled={hasClaimed}
+                onClick={claimBonusTrax}
+                className="dashboard px-4 py-3 font-semibold "
+              >
+                CLAIM BONUS TRAX
+              </button>
             </div>
           </div>
         </div>
