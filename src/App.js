@@ -5,7 +5,7 @@ import MooseBankHero from "./Component/MooseBank/MooseBankHero";
 import Header from "./Component/Header/Header";
 import Trax from "./Component/MooseBank/Trax";
 import TraxPrax from "./Component/MooseBank/TraxPrax";
-
+import { abiOG, abiMini } from "./getSuppyABI";
 //
 import Web3 from "web3/dist/web3.min.js";
 import { useMoralis } from "react-moralis";
@@ -22,6 +22,7 @@ function App() {
   const [oneTimeClaim, setOneTimeClaim] = useState(0);
   const [accountHash, setAccountHash] = useState(null);
   const [claim, setHasClaimed] = useState(false);
+  const [bonus, setBonus] = useState(0);
 
   const { Moralis, account } = useMoralis();
 
@@ -37,30 +38,35 @@ function App() {
 
         // ---------MINIMOOSE COUNT---------
         // ---------------------------------
-        const optionsMinimoose = {
+        const optionMiniMoose = {
+          abi: abiMini,
+          functionName: "balanceOf",
           chain: CONFIG.chainID,
-          address: account,
-          token_address: CONFIG.smart_contract_minimoose,
+          contractAddress: CONFIG.smart_contract_minimoose,
+          params: {
+            owner: account,
+          },
         };
 
-        const miniMooseNFT = await Moralis.Web3API.account.getNFTsForContract(
-          optionsMinimoose
-        );
+        const miniMooseBalance = await Moralis.executeFunction(optionMiniMoose);
+        const countMini = Number(Number(parseInt(miniMooseBalance._hex, 16)));
+        console.log("MINI : ", countMini);
 
         // -----------OGMOOSE COUNT---------
         // ---------------------------------
-        const optionsOgMoose = {
+        const optionOgMoose = {
+          abi: abiOG,
+          functionName: "balanceOf",
           chain: CONFIG.chainID,
-          address: account,
-          token_address: CONFIG.smart_contract_erc721,
+          contractAddress: CONFIG.smart_contract_erc721,
+          params: {
+            owner: account,
+          },
         };
 
-        const ogMooseNFT = await Moralis.Web3API.account.getNFTsForContract(
-          optionsOgMoose
-        );
-
-        const countMini = miniMooseNFT.result.length;
-        const countOg = ogMooseNFT.result.length;
+        const ogMooseBalance = await Moralis.executeFunction(optionOgMoose);
+        const countOg = Number(Number(parseInt(ogMooseBalance._hex, 16)));
+        console.log("OG : ", countOg);
 
         // ---------TRAX REWARD COUNT-------
         // ---------------------------------
@@ -110,6 +116,7 @@ function App() {
             Number(val + Number(finalResponse - finalRes))
           ).toFixed(2);
 
+          setBonus(val);
           setOneTimeClaim(oneTime);
           setAlreadyClaimed(finalRes);
           setAvailableClaim(finalResponse - finalRes);
@@ -148,7 +155,7 @@ function App() {
     run();
   }, [account]);
 
-  console.log(ownedTrax, availableClaim, perDayTrax, oneTimeClaim);
+  console.log(ownedTrax, availableClaim, perDayTrax, oneTimeClaim, bonus);
 
   return (
     <div>
@@ -158,6 +165,7 @@ function App() {
         hashedAccount={accountHash}
         paramClaim={availableClaim}
         hasClaimed={claim}
+        bonus={bonus}
       ></MooseBankHero>
       <Trax
         ownedTrax={ownedTrax}

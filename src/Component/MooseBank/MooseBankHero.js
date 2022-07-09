@@ -15,6 +15,7 @@ const MooseBankHero = ({
   hashedAccount,
   paramClaim,
   hasClaimed,
+  bonus,
 }) => {
   const { Moralis } = useMoralis();
 
@@ -134,7 +135,7 @@ const MooseBankHero = ({
             <div>
               <div className="flex justify-center">
                 <p className="text-5xl font-semibold text-white">
-                  <CountUp end={10000000} />
+                  <CountUp end={Math.floor(bonus)} />
                 </p>
               </div>
               <p className="text-center">Total Bonus Trax</p>
