@@ -77,7 +77,7 @@ const Trax = ({ ownedTrax, available, perDayTrax, hashedAccount }) => {
     <div className="trax-bg">
       <div>
         <h1 className="text-7xl text-white font-semibold text-center">
-          WITHDRAW YOUR TRAX!
+          Island Bank Balance
         </h1>
         <p className="text-center">
           Each day you hold our collections, you will earn Moose TRAX. For each

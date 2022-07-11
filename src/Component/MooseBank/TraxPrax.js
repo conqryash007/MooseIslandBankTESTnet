@@ -1,12 +1,12 @@
 import React from "react";
-import Image1 from "../MooseBank/images/25k.png";
-import Image2 from "../MooseBank/images/50k.webp";
-import Image3 from "../MooseBank/images/100k.webp";
-import Image4 from "../MooseBank/images/125k.webp";
-import Image5 from "../MooseBank/images/250k.webp";
-import Image6 from "../MooseBank/images/500k.webp";
-import Image7 from "../MooseBank/images/1m.webp";
-import Image8 from "../MooseBank/images/5m.webp";
+import Image1 from "./AmountTraxImages/25k.png";
+import Image2 from "./AmountTraxImages/100k.png";
+import Image3 from "./AmountTraxImages/200k.png";
+import Image4 from "./AmountTraxImages/250k.png";
+import Image5 from "./AmountTraxImages/500k.png";
+import Image6 from "./AmountTraxImages/750k.png";
+import Image7 from "./AmountTraxImages/1m.png";
+import Image8 from "./AmountTraxImages/5m.png";
 import "../MooseBank/TraxPrax.css";
 
 //
@@ -20,33 +20,33 @@ const TraxPrax = () => {
   const CardData = [
     {
       image: Image1,
-      price: 0.016,
+      price: 0.015,
       amount: 25000,
     },
     {
       image: Image2,
-      price: 0.03,
-      amount: 50000,
-    },
-    {
-      image: Image3,
-      price: 0.055,
+      price: 0.04,
       amount: 100000,
     },
     {
-      image: Image4,
-      price: 0.063,
-      amount: 125000,
+      image: Image3,
+      price: 0.075,
+      amount: 200000,
     },
     {
-      image: Image5,
-      price: 0.11,
+      image: Image4,
+      price: 0.1,
       amount: 250000,
     },
     {
-      image: Image6,
-      price: 0.2,
+      image: Image5,
+      price: 0.15,
       amount: 500000,
+    },
+    {
+      image: Image6,
+      price: 0.25,
+      amount: 750000,
     },
     {
       image: Image7,

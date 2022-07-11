@@ -116,18 +116,19 @@ const MooseBankHero = ({
       <div>
         <div className="flex justify-center">
           <div>
-            <h1 className="text-2xl font-bold lg:text-5xl text-white text-center">
+            <h1 className="text-2xl font-bold py-5 lg:text-4xl text-white text-center">
               Claim Your Bonus Tokens Before The Timer Runs Out!
             </h1>
-            <p className="text-center mt-5 mb-5 text-lg heroparagraph">
-              You can claim the bonus TRAX Once Per Holder Per Wallet. We know
-              some of you have multiple wallets and that is okay. So you are
-              allowed to claim once per wallet. The amount you get will be based
-              upon how long you have held them. Everyone's bonus will be
-              different depending on how many moose you have in that particular
-              wallet. Once the timer runs down, these tokens will be gone and
-              will NOT be able to be claimed again.
-            </p>
+            <Countdown
+              autoStart={true}
+              controlled={false}
+              date={1658847195000}
+              daysInHours={false}
+              precision={0}
+              zeroPadDays={3}
+              zeroPadTime={2}
+              renderer={renderer}
+            />
           </div>
         </div>
         <div className="flex justify-center mt-10 mb-20">
@@ -193,16 +194,11 @@ const MooseBankHero = ({
             </div>
           </div>
         </div>
-        <Countdown
-          autoStart={true}
-          controlled={false}
-          date={1658242332000}
-          daysInHours={false}
-          precision={0}
-          zeroPadDays={3}
-          zeroPadTime={2}
-          renderer={renderer}
-        />
+        <p className="text-center mt-5 mb-5 text-lg heroparagraph">
+          You are allowed to claim your bonus $TRAX Tokens once per wallet. The
+          calculations are based on how many moose you hold and how long your
+          have had them. Each claim will be different. There are NO set amounts.
+        </p>
       </div>
     </div>
   );
