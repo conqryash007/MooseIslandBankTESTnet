@@ -127,9 +127,11 @@ if (network === "mainnet") {
   // moralis_contract_moosetrax = "0xa120EAe3D388054ea9C30C692c4A9B5570912481";
   // moralis_contract_moosetrax = "0x6b5D89C1ED1031fA2eCD0F4A075947CEd443C2F6";
   // moralis_contract_moosetrax = "0x9eC9c782597a5357a4ebb12c958468c5BDD97cF0";
-  moralis_contract_moosetrax = "0x993877FB290e68d86ea60d270e89aC6b976b96f3";
+  // moralis_contract_moosetrax = "0x993877FB290e68d86ea60d270e89aC6b976b96f3";
+  moralis_contract_moosetrax = "0xe7fc1e7a6AbD9f3a12955c76B02051E364F103d9";
 
-  moralis_contract_heroboxserum = "0x79124e48e33ad9166FE1E0E7993a14179cbc99CC";
+  // moralis_contract_heroboxserum = "0x79124e48e33ad9166FE1E0E7993a14179cbc99CC";
+  moralis_contract_heroboxserum = "0xCC7fA973ba159dB156967698881c787Fde5f00D2";
 
   // URI For Smart Collections
   SC_1_JSON_URI =
