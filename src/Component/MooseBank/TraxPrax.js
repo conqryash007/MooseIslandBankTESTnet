@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image1 from "./AmountTraxImages/25k.png";
 import Image2 from "./AmountTraxImages/100k.png";
 import Image3 from "./AmountTraxImages/200k.png";
@@ -16,49 +16,102 @@ import { CONFIG } from "./../../config";
 //
 import { notifyError, notifyInfo, notifySuccess } from "./ToastFunction";
 
-const TraxPrax = () => {
-  const CardData = [
+const TraxPrax = ({ pricesPrax }) => {
+  const [cardData, setCardData] = useState([
     {
       image: Image1,
-      price: 0.015,
+      price: "-",
       amount: 25000,
     },
     {
       image: Image2,
-      price: 0.04,
+      price: "-",
       amount: 100000,
     },
     {
       image: Image3,
-      price: 0.075,
+      price: "-",
       amount: 200000,
     },
     {
       image: Image4,
-      price: 0.1,
+      price: "-",
       amount: 250000,
     },
     {
       image: Image5,
-      price: 0.15,
+      price: "-",
       amount: 500000,
     },
     {
       image: Image6,
-      price: 0.25,
+      price: "-",
       amount: 750000,
     },
     {
       image: Image7,
-      price: 0.35,
+      price: "-",
       amount: 1000000,
     },
     {
       image: Image8,
-      price: 1.5,
+      price: "-",
       amount: 5000000,
     },
-  ];
+  ]);
+
+  useEffect(() => {
+    let tempCardData = [
+      {
+        image: Image1,
+        price: 0.015,
+        amount: 25000,
+      },
+      {
+        image: Image2,
+        price: 0.04,
+        amount: 100000,
+      },
+      {
+        image: Image3,
+        price: 0.075,
+        amount: 200000,
+      },
+      {
+        image: Image4,
+        price: 0.1,
+        amount: 250000,
+      },
+      {
+        image: Image5,
+        price: 0.15,
+        amount: 500000,
+      },
+      {
+        image: Image6,
+        price: 0.25,
+        amount: 750000,
+      },
+      {
+        image: Image7,
+        price: 0.35,
+        amount: 1000000,
+      },
+      {
+        image: Image8,
+        price: 1.5,
+        amount: 5000000,
+      },
+    ];
+    if (pricesPrax.length > 0) {
+      tempCardData = tempCardData.map((curr, idx) => {
+        curr.price = pricesPrax[idx];
+        return curr;
+      });
+      setCardData(tempCardData);
+      console.log(tempCardData);
+    }
+  }, [pricesPrax]);
   const { Moralis } = useMoralis();
 
   const buyTrax = async (prc) => {
@@ -114,14 +167,14 @@ const TraxPrax = () => {
 
       <div className="flex justify-center mb-20">
         <div className=" grid grid-cols-1 lg:grid-cols-4 w-10/12 gap-y-5">
-          {CardData.map((data, indx) => {
+          {cardData.map((data, indx) => {
             return (
               <div key={indx} className="cards">
                 <div className="flex justify-center">
                   <img className=" w-full h-40" src={data.image} alt="" />
                 </div>
                 <button
-                  // onClick={() => buyTrax(data.amount, data.price)}
+                  disabled={pricesPrax.length === 0}
                   onClick={() => buyTrax(data.price)}
                   className="traxPrice "
                 >

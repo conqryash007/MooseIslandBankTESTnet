@@ -1,7 +1,6 @@
 const FULLABI = [
   {
     inputs: [
-      { internalType: "address", name: "_society", type: "address" },
       { internalType: "address", name: "_moose", type: "address" },
       { internalType: "address", name: "_minimoose", type: "address" },
       {
@@ -228,6 +227,13 @@ const FULLABI = [
     type: "function",
   },
   {
+    inputs: [],
+    name: "getTraxPaxPrice",
+    outputs: [{ internalType: "uint256[8]", name: "", type: "uint256[8]" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [{ internalType: "address", name: "", type: "address" }],
     name: "hasClaimed",
     outputs: [{ internalType: "bool", name: "", type: "bool" }],
@@ -332,6 +338,20 @@ const FULLABI = [
     type: "function",
   },
   {
+    inputs: [{ internalType: "uint256", name: "amount", type: "uint256" }],
+    name: "setRewardPerMiniMoose",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "uint256", name: "amount", type: "uint256" }],
+    name: "setRewardPerMoose",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
     inputs: [{ internalType: "uint256", name: "maxAmount", type: "uint256" }],
     name: "setmaxClaimRewardAmount",
     outputs: [],
@@ -343,13 +363,6 @@ const FULLABI = [
     name: "setmaxOneTimeClaimAmount",
     outputs: [],
     stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "society",
-    outputs: [{ internalType: "address", name: "", type: "address" }],
-    stateMutability: "view",
     type: "function",
   },
   {
@@ -390,6 +403,13 @@ const FULLABI = [
   {
     inputs: [{ internalType: "address", name: "newOwner", type: "address" }],
     name: "transferOwnership",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "uint256[]", name: "_prices", type: "uint256[]" }],
+    name: "updateTraxPaxPrice",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",

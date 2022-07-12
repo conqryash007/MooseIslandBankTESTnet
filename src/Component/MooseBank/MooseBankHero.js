@@ -16,6 +16,7 @@ const MooseBankHero = ({
   paramClaim,
   hasClaimed,
   bonus,
+  burnedTrax,
 }) => {
   const { Moralis } = useMoralis();
 
@@ -177,7 +178,7 @@ const MooseBankHero = ({
             <div>
               <div className="flex justify-center">
                 <p className="text-5xl font-semibold text-white">
-                  <CountUp end={0} />
+                  <CountUp end={burnedTrax} />
                 </p>
               </div>
               <p className=" text-center">TRAX Tokens Burned</p>

@@ -5,7 +5,7 @@ import MooseBankHero from "./Component/MooseBank/MooseBankHero";
 import Header from "./Component/Header/Header";
 import Trax from "./Component/MooseBank/Trax";
 import TraxPrax from "./Component/MooseBank/TraxPrax";
-import { abiOG, abiMini } from "./getSuppyABI";
+import { abiOG, abiMini, abiGetBurnedTrax } from "./getSuppyABI";
 //
 import Web3 from "web3/dist/web3.min.js";
 import { useMoralis } from "react-moralis";
@@ -23,6 +23,8 @@ function App() {
   const [accountHash, setAccountHash] = useState(null);
   const [claim, setHasClaimed] = useState(false);
   const [bonus, setBonus] = useState(0);
+  const [pricesPrax, setPricesPrax] = useState([]);
+  const [burnedTrax, setBurnedTrax] = useState(0);
 
   const { Moralis, account } = useMoralis();
 
@@ -38,40 +40,42 @@ function App() {
 
         // ---------MINIMOOSE COUNT---------
         // ---------------------------------
-        const optionMiniMoose = {
-          abi: abiMini,
-          functionName: "balanceOf",
-          chain: CONFIG.chainID,
-          contractAddress: CONFIG.smart_contract_minimoose,
-          params: {
-            owner: account,
-          },
-        };
+        if (account) {
+          const optionMiniMoose = {
+            abi: abiMini,
+            functionName: "balanceOf",
+            chain: CONFIG.chainID,
+            contractAddress: CONFIG.smart_contract_minimoose,
+            params: {
+              owner: account,
+            },
+          };
 
-        const miniMooseBalance = await Moralis.executeFunction(optionMiniMoose);
-        const countMini = Number(Number(parseInt(miniMooseBalance._hex, 16)));
-        console.log("MINI : ", countMini);
+          const miniMooseBalance = await Moralis.executeFunction(
+            optionMiniMoose
+          );
+          const countMini = Number(Number(parseInt(miniMooseBalance._hex, 16)));
 
-        // -----------OGMOOSE COUNT---------
-        // ---------------------------------
-        const optionOgMoose = {
-          abi: abiOG,
-          functionName: "balanceOf",
-          chain: CONFIG.chainID,
-          contractAddress: CONFIG.smart_contract_erc721,
-          params: {
-            owner: account,
-          },
-        };
+          // -----------OGMOOSE COUNT---------
+          // ---------------------------------
+          const optionOgMoose = {
+            abi: abiOG,
+            functionName: "balanceOf",
+            chain: CONFIG.chainID,
+            contractAddress: CONFIG.smart_contract_erc721,
+            params: {
+              owner: account,
+            },
+          };
 
-        const ogMooseBalance = await Moralis.executeFunction(optionOgMoose);
-        const countOg = Number(Number(parseInt(ogMooseBalance._hex, 16)));
-        console.log("OG : ", countOg);
+          const ogMooseBalance = await Moralis.executeFunction(optionOgMoose);
+          const countOg = Number(Number(parseInt(ogMooseBalance._hex, 16)));
 
-        // ---------TRAX REWARD COUNT-------
-        // ---------------------------------
-        const traxRewardPerDay = countMini * 15 + countOg * 10;
-        setPerDayTrax(traxRewardPerDay);
+          // ---------TRAX REWARD COUNT-------
+          // ---------------------------------
+          const traxRewardPerDay = countMini * 15 + countOg * 10;
+          setPerDayTrax(traxRewardPerDay);
+        }
 
         if (account) {
           // ---------HAS CLAIMED-------------
@@ -146,6 +150,39 @@ function App() {
           ).toFixed(2);
           setOwnedTrax(val);
         }
+
+        // ---------PRICES OF --------------
+        // -----------PAXS------------------
+        if (account) {
+          const optionPricesPrax = {
+            abi: FULLABI,
+            functionName: "getTraxPaxPrice",
+            chain: CONFIG.chainID,
+            contractAddress: CONFIG.smart_contract_moosetrax,
+          };
+
+          const pricesBN = await Moralis.executeFunction(optionPricesPrax);
+          const pricesETH = pricesBN.map((curr) => {
+            return Number(web3.utils.fromWei(curr.toString()));
+          });
+
+          setPricesPrax(pricesETH);
+        }
+
+        // ---------TRAX BURRNED---------------
+        // -----------BY USER------------------
+        if (account) {
+          let myContract = new web3.eth.Contract(
+            abiGetBurnedTrax,
+            CONFIG.smart_contract_heroboxserum
+          );
+
+          const traxBurnedRes = await myContract.methods
+            .traxBurned(account)
+            .call();
+
+          setBurnedTrax(traxBurnedRes);
+        }
       } catch (err) {
         console.log("APP -----");
         console.log(err);
@@ -166,6 +203,7 @@ function App() {
         paramClaim={availableClaim}
         hasClaimed={claim}
         bonus={bonus}
+        burnedTrax={burnedTrax}
       ></MooseBankHero>
       <Trax
         ownedTrax={ownedTrax}
@@ -173,7 +211,7 @@ function App() {
         hashedAccount={accountHash}
         perDayTrax={perDayTrax}
       ></Trax>
-      <TraxPrax></TraxPrax>
+      <TraxPrax pricesPrax={pricesPrax}></TraxPrax>
       <Footer></Footer>
     </div>
   );

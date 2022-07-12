@@ -58,6 +58,7 @@ let moralis_contract_unstaked = "";
 let moralis_contract_hideout = "";
 let moralis_contract_alphaherd = "";
 let moralis_contract_moosetrax = "";
+let moralis_contract_heroboxserum = "";
 
 if (network === "mainnet") {
   moralis_app_ID = MORALIS_SERVER.mainnet_AppID;
@@ -125,7 +126,10 @@ if (network === "mainnet") {
   // moralis_contract_moosetrax = "0x755311D22cE150E9401e45f8C0AcC86b05B18011";
   // moralis_contract_moosetrax = "0xa120EAe3D388054ea9C30C692c4A9B5570912481";
   // moralis_contract_moosetrax = "0x6b5D89C1ED1031fA2eCD0F4A075947CEd443C2F6";
-  moralis_contract_moosetrax = "0x9eC9c782597a5357a4ebb12c958468c5BDD97cF0";
+  // moralis_contract_moosetrax = "0x9eC9c782597a5357a4ebb12c958468c5BDD97cF0";
+  moralis_contract_moosetrax = "0x993877FB290e68d86ea60d270e89aC6b976b96f3";
+
+  moralis_contract_heroboxserum = "0x79124e48e33ad9166FE1E0E7993a14179cbc99CC";
 
   // URI For Smart Collections
   SC_1_JSON_URI =
@@ -169,6 +173,7 @@ const CONFIG = {
   smart_contract_hideout: moralis_contract_hideout,
   smart_contract_alphaherd: moralis_contract_alphaherd,
   smart_contract_moosetrax: moralis_contract_moosetrax,
+  smart_contract_heroboxserum: moralis_contract_heroboxserum,
   test_serverUrl: "https://0xzjwzdbbkel.usemoralis.com:2053/server",
   test_appId: "TyeNFHSscgGgPcO2e0oDxuzDWo72tLF80MboERhI",
   chainID: chainID,
