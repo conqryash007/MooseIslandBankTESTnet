@@ -76,10 +76,10 @@ const Trax = ({ ownedTrax, available, perDayTrax, hashedAccount }) => {
   return (
     <div className="trax-bg">
       <div>
-        <h1 className="text-7xl text-white font-semibold text-center">
+        <h1 className="text-7xl text-white font-semibold text-center main-text-bal">
           Island Bank Balance
         </h1>
-        <p className="text-center">
+        <p className="text-center para-text earn-trax-text">
           Each day you hold our collections, you will earn Moose TRAX. For each
           OG Moose you hold, you earn 10 Per Day. For each Mini Moose you hold,
           you earn 15 Per Day.
@@ -93,16 +93,20 @@ const Trax = ({ ownedTrax, available, perDayTrax, hashedAccount }) => {
                 <CountUp end={Math.floor(perDayTrax)} />
               </p>
             </div>
-            <p className="text-center">TRAX Earned Per Day Trax</p>
+            <p className="text-center font-bold para-text">
+              TRAX Earned Per Day Trax
+            </p>
           </div>
 
-          <div className="separator">
+          <div className="separator separator-cont">
             <div className="flex justify-center">
               <p className="text-5xl font-semibold text-white">
                 <DecimalCounter value={available} />
               </p>
             </div>
-            <p className=" text-center">Total TRAX Owned</p>
+            <p className=" text-center font-bold para-text">
+              Available To Claim
+            </p>
             <div className="flex justify-center">
               <button
                 disabled={disableBtn || disableLowBal}
@@ -119,7 +123,7 @@ const Trax = ({ ownedTrax, available, perDayTrax, hashedAccount }) => {
                 <DecimalCounter value={ownedTrax} />
               </p>
             </div>
-            <p className=" text-center">Total TRAX Owned</p>
+            <p className=" text-center font-bold para-text">Total TRAX Owned</p>
           </div>
         </div>
       </div>

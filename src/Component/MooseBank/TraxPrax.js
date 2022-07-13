@@ -152,13 +152,13 @@ const TraxPrax = ({ pricesPrax }) => {
     <div className="trax_prax_bg">
       <div className="flex justify-center mb-10 mt-10">
         <div className=" w-9/12">
-          <h5 className="text-center text-xl text-white">
+          <h5 className="text-center text-xl text-white traxprax-text-1">
             Moose Society Island Bank
           </h5>
-          <h1 className="text-center text-7xl font-semibold text-white">
+          <h1 className="text-center text-7xl font-semibold text-white traxprax-text-2">
             TRAX PAX
           </h1>
-          <p className="text-center text-xl ">
+          <p className="text-center text-xl para-text traxprax-text-3">
             Haven't earned enough yet and need a few more? Or you just want to
             have some on hand? This is where you can get some extra.
           </p>

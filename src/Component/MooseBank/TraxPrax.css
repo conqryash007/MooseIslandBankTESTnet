@@ -1,23 +1,39 @@
-.trax_prax_bg{
-    background-image: url("../MooseBank/images/bg-boxstar.webp");
-    background-position: center;
-    padding-top: 100px;
-    padding-bottom: 100px;}
-.cards{
-    background-color: #ffffff12;
+.trax_prax_bg {
+  background-image: url("../MooseBank/images/bg-boxstar.webp");
+  background-position: center;
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+.cards {
+  background-color: #ffffff12;
 
-    margin-left: 20px;
-    padding: 10px;
-    border-radius: 8px;
+  margin-left: 20px;
+  padding: 10px;
+  border-radius: 8px;
 }
-.cards img{
-    border-radius: 8px 8px 8px 8px;
+.cards img {
+  border-radius: 8px 8px 8px 8px;
 }
-.traxPrice{
-    background-color: #ab17df;
-    width: 100%;
-    margin-top: 5px;
-padding: 10px 20px 10px 20px;
-color: white;
-border-radius: 8px;
+.traxPrice {
+  background-color: #ab17df;
+  width: 100%;
+  margin-top: 5px;
+  padding: 10px 20px 10px 20px;
+  color: white;
+  border-radius: 8px;
+}
+
+@media only screen and (max-width: 600px) {
+  .traxprax-text-1 {
+    font-size: 4vw;
+  }
+  .traxprax-text-2 {
+    font-size: 9vw;
+  }
+  .traxprax-text-3 {
+    font-weight: 510;
+  }
+  .trax_prax_bg {
+    padding: 0;
+  }
 }

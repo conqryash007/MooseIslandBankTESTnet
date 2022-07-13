@@ -1,7 +1,36 @@
-.trax-bg{
-    background-image: url('../MooseBank/images/bg-hero-home.webp');
-    background-position: center;
-    padding-top: 100px;
-    padding-bottom: 100px;
-    margin-bottom: 30px;
+.trax-bg {
+  background-image: url("../MooseBank/images/bg-hero-home.webp");
+  background-position: center;
+  padding-top: 100px;
+  padding-bottom: 100px;
+  margin-bottom: 30px;
+}
+
+.earn-trax-text {
+  font-weight: 550;
+}
+
+@media only screen and (max-width: 600px) {
+  .main-text-bal {
+    font-size: 6vw;
+    padding-bottom: 20px;
+  }
+  .earn-trax-text {
+    padding: 10px;
+  }
+  .separator-cont {
+    padding: 20px;
+  }
+  .separator {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+  }
+  .trax_prax_bg {
+    padding-top: 1px;
+  }
+  .trax-bg {
+    padding-top: 50px;
+  }
 }
