@@ -6,10 +6,6 @@
   margin-bottom: 30px;
 }
 
-.earn-trax-text {
-  font-weight: 550;
-}
-
 @media only screen and (max-width: 600px) {
   .main-text-bal {
     font-size: 6vw;
@@ -17,6 +13,7 @@
   }
   .earn-trax-text {
     padding: 10px;
+    font-weight: 550;
   }
   .separator-cont {
     padding: 20px;

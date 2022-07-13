@@ -93,9 +93,7 @@ const Trax = ({ ownedTrax, available, perDayTrax, hashedAccount }) => {
                 <CountUp end={Math.floor(perDayTrax)} />
               </p>
             </div>
-            <p className="text-center font-bold para-text">
-              TRAX Earned Per Day Trax
-            </p>
+            <p className="text-center semi-text">TRAX Earned Per Day Trax</p>
           </div>
 
           <div className="separator separator-cont">
@@ -104,9 +102,7 @@ const Trax = ({ ownedTrax, available, perDayTrax, hashedAccount }) => {
                 <DecimalCounter value={available} />
               </p>
             </div>
-            <p className=" text-center font-bold para-text">
-              Available To Claim
-            </p>
+            <p className=" text-center semi-text">Available To Claim</p>
             <div className="flex justify-center">
               <button
                 disabled={disableBtn || disableLowBal}
@@ -123,7 +119,7 @@ const Trax = ({ ownedTrax, available, perDayTrax, hashedAccount }) => {
                 <DecimalCounter value={ownedTrax} />
               </p>
             </div>
-            <p className=" text-center font-bold para-text">Total TRAX Owned</p>
+            <p className=" text-center semi-text">Total TRAX Owned</p>
           </div>
         </div>
       </div>
