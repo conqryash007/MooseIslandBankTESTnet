@@ -15,8 +15,9 @@ import { FULLABI } from "./FULLABI";
 import { CONFIG } from "./../../config";
 //
 import { notifyError, notifyInfo, notifySuccess } from "./ToastFunction";
+import DecimalCounter from "./DecimalCounter";
 
-const TraxPrax = ({ pricesPrax }) => {
+const TraxPrax = ({ pricesPrax, availableToMint }) => {
   const [cardData, setCardData] = useState([
     {
       image: Image1,
@@ -163,6 +164,15 @@ const TraxPrax = ({ pricesPrax }) => {
             have some on hand? This is where you can get some extra.
           </p>
         </div>
+      </div>
+
+      <div className="pb-5">
+        <div className="flex justify-center">
+          <p className="text-5xl font-semibold text-white">
+            <DecimalCounter value={availableToMint} />
+          </p>
+        </div>
+        <p className="text-center semi-text">TRAX Available To Mint</p>
       </div>
 
       <div className="flex justify-center mb-20">

@@ -25,6 +25,7 @@ function App() {
   const [bonus, setBonus] = useState(0);
   const [pricesPrax, setPricesPrax] = useState([]);
   const [burnedTrax, setBurnedTrax] = useState(0);
+  const [availableToMint, setAvailableToMint] = useState(10000000000);
 
   const { Moralis, account } = useMoralis();
 
@@ -169,19 +170,34 @@ function App() {
           setPricesPrax(pricesETH);
         }
 
-        // ---------TRAX BURRNED---------------
+        // ---------TRAX BURNED---------------
         // -----------BY USER------------------
         if (account) {
-          let myContract = new web3.eth.Contract(
+          let _myContract = new web3.eth.Contract(
             abiGetBurnedTrax,
             CONFIG.smart_contract_heroboxserum
           );
 
-          const traxBurnedRes = await myContract.methods
+          const traxBurnedRes = await _myContract.methods
             .traxBurned(account)
             .call();
 
           setBurnedTrax(traxBurnedRes);
+        }
+
+        if (account) {
+          // -------------------------------
+          // --- TOTAL AVAILABLE TO MINT ---
+
+          const resCap = await myContract.methods.cap().call();
+          const finalCap = web3.utils.fromWei(resCap);
+
+          const _totalSupply = await myContract.methods.totalSupply().call();
+          const totalSupply = web3.utils.fromWei(_totalSupply);
+
+          console.log((finalCap - totalSupply).toFixed(2));
+
+          setAvailableToMint((finalCap - totalSupply).toFixed(2));
         }
       } catch (err) {
         console.log("APP -----");
@@ -214,7 +230,10 @@ function App() {
         burnedTrax={burnedTrax}
         hasClaimed={claim}
       ></Trax>
-      <TraxPrax pricesPrax={pricesPrax}></TraxPrax>
+      <TraxPrax
+        pricesPrax={pricesPrax}
+        availableToMint={availableToMint}
+      ></TraxPrax>
       <Footer></Footer>
     </div>
   );
