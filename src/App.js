@@ -202,6 +202,7 @@ function App() {
         hashedAccount={accountHash}
         paramClaim={availableClaim}
         hasClaimed={claim}
+        setHasClaimed={setHasClaimed}
         bonus={bonus}
         burnedTrax={burnedTrax}
       ></MooseBankHero>
@@ -210,6 +211,8 @@ function App() {
         available={availableClaim}
         hashedAccount={accountHash}
         perDayTrax={perDayTrax}
+        burnedTrax={burnedTrax}
+        hasClaimed={claim}
       ></Trax>
       <TraxPrax pricesPrax={pricesPrax}></TraxPrax>
       <Footer></Footer>

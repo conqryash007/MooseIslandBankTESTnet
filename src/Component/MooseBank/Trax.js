@@ -11,7 +11,14 @@ import { CONFIG } from "./../../config";
 //
 import { notifyError, notifyInfo, notifySuccess } from "./ToastFunction";
 
-const Trax = ({ ownedTrax, available, perDayTrax, hashedAccount }) => {
+const Trax = ({
+  ownedTrax,
+  available,
+  perDayTrax,
+  hashedAccount,
+  burnedTrax,
+  hasClaimed,
+}) => {
   const { Moralis } = useMoralis();
 
   const [disableBtn, setDisableBtn] = useState(false);
@@ -85,6 +92,18 @@ const Trax = ({ ownedTrax, available, perDayTrax, hashedAccount }) => {
           you earn 15 Per Day.
         </p>
       </div>
+      {hasClaimed ? (
+        <div className="p-5">
+          <div className="flex justify-center ">
+            <p className="text-5xl font-semibold text-white">
+              <CountUp end={burnedTrax} />
+            </p>
+          </div>
+          <p className=" text-center semi-text">TRAX Tokens Burned</p>
+        </div>
+      ) : (
+        <></>
+      )}
       <div className="flex justify-center mt-10 mb-5">
         <div className="grid grid-cols-1 lg:grid-cols-3  w-9/12 gap-y-10">
           <div>

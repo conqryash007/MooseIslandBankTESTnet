@@ -17,6 +17,7 @@ const MooseBankHero = ({
   hasClaimed,
   bonus,
   burnedTrax,
+  setHasClaimed,
 }) => {
   const { Moralis } = useMoralis();
 
@@ -59,6 +60,7 @@ const MooseBankHero = ({
 
         // toastify #2
         notifySuccess("Successfully Claimed Bonus Trax");
+        setHasClaimed(true);
       } catch (err) {
         console.log("mintError=>", err);
         console.log("bankhero -----");
@@ -114,44 +116,41 @@ const MooseBankHero = ({
         theme="dark"
         pauseOnHover
       />
-      <div>
-        <div className="flex justify-center">
-          <div>
-            <h1 className="text-3xl font-bold py-5 lg:text-4xl text-white text-center header-font-common">
-              Claim Your Bonus Tokens Before The Timer Runs Out!
-            </h1>
-            <Countdown
-              autoStart={true}
-              controlled={false}
-              date={1658847195000}
-              daysInHours={false}
-              precision={0}
-              zeroPadDays={3}
-              zeroPadTime={2}
-              renderer={renderer}
-            />
-          </div>
-        </div>
-        <div className="flex justify-center mt-10 mb-20">
-          <div className="grid lg:grid-cols-4  w-11/12 gap-y-5">
+      {hasClaimed ? (
+        <></>
+      ) : (
+        <div>
+          <div className="flex justify-center">
             <div>
-              <div className="flex justify-center">
-                <p className="text-5xl font-semibold text-white">
-                  <CountUp end={Math.floor(bonus)} />
-                </p>
-              </div>
-              <p className="text-center semi-text">Total Bonus Trax</p>
+              <h1 className="text-3xl font-bold py-5 lg:text-4xl text-white text-center header-font-common">
+                Claim Your Bonus Tokens Before The Timer Runs Out!
+              </h1>
+              <Countdown
+                autoStart={true}
+                controlled={false}
+                date={1658847195000}
+                daysInHours={false}
+                precision={0}
+                zeroPadDays={3}
+                zeroPadTime={2}
+                renderer={renderer}
+              />
             </div>
+          </div>
 
-            <div>
-              <div className="flex justify-center ">
-                {hasClaimed ? (
-                  <>
-                    <p className="text-5xl font-semibold text-white ">
-                      CLAIMED
-                    </p>
-                  </>
-                ) : (
+          <div className="flex justify-center mt-10 mb-20">
+            <div className="grid lg:grid-cols-4  w-11/12 gap-y-5">
+              <div>
+                <div className="flex justify-center">
+                  <p className="text-5xl font-semibold text-white">
+                    <CountUp end={Math.floor(bonus)} />
+                  </p>
+                </div>
+                <p className="text-center semi-text">Total Bonus Trax</p>
+              </div>
+
+              <div>
+                <div className="flex justify-center ">
                   <p className="text-5xl font-semibold text-white ">
                     <CountUp end={Math.floor(oneTimeClaimValue)} />.
                     {(oneTimeClaimValue - Math.floor(oneTimeClaimValue)) * 100 >
@@ -171,36 +170,38 @@ const MooseBankHero = ({
                       />
                     )}
                   </p>
-                )}
+                </div>
+                <p className=" text-center semi-text">TRAX Tokens Earned</p>
               </div>
-              <p className=" text-center semi-text">TRAX Tokens Earned</p>
-            </div>
-            <div>
-              <div className="flex justify-center">
-                <p className="text-5xl font-semibold text-white">
-                  <CountUp end={burnedTrax} />
-                </p>
+              <div>
+                <div className="flex justify-center">
+                  <p className="text-5xl font-semibold text-white">
+                    <CountUp end={burnedTrax} />
+                  </p>
+                </div>
+                <p className=" text-center semi-text">TRAX Tokens Burned</p>
               </div>
-              <p className=" text-center semi-text">TRAX Tokens Burned</p>
-            </div>
 
-            <div className="flex justify-center separator ">
-              <button
-                disabled={hasClaimed}
-                onClick={claimBonusTrax}
-                className="dashboard px-4 py-3 font-semibold claim-btn"
-              >
-                CLAIM BONUS TRAX
-              </button>
+              <div className="flex justify-center separator ">
+                <button
+                  disabled={hasClaimed}
+                  onClick={claimBonusTrax}
+                  className="dashboard px-4 py-3 font-semibold claim-btn"
+                >
+                  CLAIM BONUS TRAX
+                </button>
+              </div>
             </div>
           </div>
+
+          <p className="text-center mt-5 mb-5 text-lg heroparagraph para-text claim-text">
+            You are allowed to claim your bonus $TRAX Tokens once per wallet.
+            The calculations are based on how many moose you hold and how long
+            your have had them. Each claim will be different. There are NO set
+            amounts.
+          </p>
         </div>
-        <p className="text-center mt-5 mb-5 text-lg heroparagraph para-text claim-text">
-          You are allowed to claim your bonus $TRAX Tokens once per wallet. The
-          calculations are based on how many moose you hold and how long your
-          have had them. Each claim will be different. There are NO set amounts.
-        </p>
-      </div>
+      )}
     </div>
   );
 };
