@@ -16,6 +16,7 @@ import { CONFIG } from "./../../config";
 //
 import { notifyError, notifyInfo, notifySuccess } from "./ToastFunction";
 import DecimalCounter from "./DecimalCounter";
+import CountUp from "react-countup";
 
 const TraxPrax = ({ pricesPrax, availableToMint }) => {
   const [cardData, setCardData] = useState([
@@ -169,7 +170,16 @@ const TraxPrax = ({ pricesPrax, availableToMint }) => {
       <div className="pb-5">
         <div className="flex justify-center">
           <p className="text-5xl font-semibold text-white">
-            <DecimalCounter value={availableToMint} />
+            {availableToMint / 1000000 > 1 ? (
+              <>
+                <div style={{ display: "flex" }}>
+                  <CountUp end={availableToMint / 1000000} />
+                  <p className="pl-1">{" M"}</p>
+                </div>
+              </>
+            ) : (
+              <DecimalCounter value={availableToMint} />
+            )}
           </p>
         </div>
         <p className="text-center semi-text">TRAX Available To Mint</p>
