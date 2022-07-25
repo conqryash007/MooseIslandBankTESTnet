@@ -169,27 +169,33 @@ const TraxPrax = ({ pricesPrax, availableToMint }) => {
 
       <div className="pb-5">
         <div className="flex justify-center">
-          <p className="text-5xl font-semibold text-white">
+          <div className="text-5xl font-semibold text-white">
             {availableToMint / 1000000 > 1 ? (
               <>
                 <div style={{ display: "flex" }}>
                   <CountUp end={availableToMint / 1000000} />
-                  <p className="pl-1">{" M"}</p>
+                  <span className="pl-1">{" M"}</span>
                 </div>
               </>
             ) : (
               <DecimalCounter value={availableToMint} />
             )}
-          </p>
+          </div>
         </div>
         <p className="text-center semi-text">TRAX Available To Mint</p>
       </div>
 
       <div className="flex justify-center mb-20">
-        <div className=" grid grid-cols-1 lg:grid-cols-4 w-10/12 gap-y-5">
+        <div className="prax-main-container">
           {cardData.map((data, indx) => {
+            if (
+              data.amount === 200000 ||
+              data.amount === 750000 ||
+              data.amount === 5000000
+            )
+              return null;
             return (
-              <div key={indx} className="cards">
+              <div key={indx} className="cards traxpax-one">
                 <div className="flex justify-center">
                   <img className=" w-full h-40" src={data.image} alt="" />
                 </div>
