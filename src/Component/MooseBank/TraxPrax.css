@@ -21,10 +21,22 @@
   padding: 10px 20px 10px 20px;
   color: white;
   border-radius: 8px;
+  z-index: 1;
 }
 .traxpax-one {
-  max-width: 23vw;
-  margin: 20px;
+  overflow: hidden;
+  z-index: 1;
+  margin-bottom: 20px;
+}
+.image-txpx {
+  object-fit: cover;
+  margin: -25px 0px -25px 0px;
+}
+.text-prax-main {
+  width: 50vw;
+  margin: auto;
+  border-width: 2px;
+  border-color: rgb(5, 159, 159);
 }
 
 .prax-main-container {

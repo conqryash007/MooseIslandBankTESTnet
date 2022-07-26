@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Image1 from "./AmountTraxImages/25k.png";
+import Image1 from "./AmountTraxImages/50k.png";
 import Image2 from "./AmountTraxImages/100k.png";
 import Image3 from "./AmountTraxImages/200k.png";
 import Image4 from "./AmountTraxImages/250k.png";
@@ -23,7 +23,7 @@ const TraxPrax = ({ pricesPrax, availableToMint }) => {
     {
       image: Image1,
       price: "-",
-      amount: 25000,
+      amount: 50000,
     },
     {
       image: Image2,
@@ -67,7 +67,7 @@ const TraxPrax = ({ pricesPrax, availableToMint }) => {
       {
         image: Image1,
         price: 0.015,
-        amount: 25000,
+        amount: 50000,
       },
       {
         image: Image2,
@@ -160,7 +160,7 @@ const TraxPrax = ({ pricesPrax, availableToMint }) => {
           <h1 className="text-center text-7xl font-semibold text-white traxprax-text-2">
             TRAX PAX
           </h1>
-          <p className="text-center text-xl para-text traxprax-text-3">
+          <p className="text-center text-xl para-text traxprax-text-3 text-prax-main">
             Haven't earned enough yet and need a few more? Or you just want to
             have some on hand? This is where you can get some extra.
           </p>
@@ -197,7 +197,11 @@ const TraxPrax = ({ pricesPrax, availableToMint }) => {
             return (
               <div key={indx} className="cards traxpax-one">
                 <div className="flex justify-center">
-                  <img className=" w-full h-40" src={data.image} alt="" />
+                  <img
+                    className=" w-full h-40 image-txpx"
+                    src={data.image}
+                    alt=""
+                  />
                 </div>
                 <button
                   disabled={pricesPrax.length === 0}
