@@ -128,7 +128,7 @@ const MooseBankHero = ({
               <Countdown
                 autoStart={true}
                 controlled={false}
-                date={1658847195000}
+                date={1667314595000}
                 daysInHours={false}
                 precision={0}
                 zeroPadDays={3}
