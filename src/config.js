@@ -40,8 +40,8 @@ let ETHERSCAN_BASE_URI = "";
 // NETWORK SWITCHER
 // NETWORK SWITCHER
 
-let network = "rinkeby";
-// let network = "mainnet";
+// let network = "rinkeby";
+let network = "mainnet";
 
 // NETWORK SWITCHER
 // NETWORK SWITCHER
@@ -75,7 +75,8 @@ if (network === "mainnet") {
 
   moralis_contract_alphaherd = "0x24A913B00cbC8C3c747B19C7944E4dA26da1130b";
 
-  moralis_contract_moosetrax = "";
+  moralis_contract_moosetrax = "0xFeaf24248e04aC7Ad0Ea6e7e617182cfF429d4e5";
+  moralis_contract_heroboxserum = "0x8F71e17b612f3EA9a8Bf7eeB9289654EDCa6d8B7";
 
   // URI For Smart Collections
   SC_1_JSON_URI =
@@ -134,7 +135,7 @@ if (network === "mainnet") {
   // moralis_contract_heroboxserum = "0x79124e48e33ad9166FE1E0E7993a14179cbc99CC";
   // moralis_contract_heroboxserum = "0xCC7fA973ba159dB156967698881c787Fde5f00D2";
 
-  moralis_contract_moosetrax = "0xEA88867e0C0c3d45a47dC031FCe6C881B118dc3F";
+  moralis_contract_moosetrax = "0x98E08Ea1CF2C98068195F6ea43F869Fb04401F1A";
   moralis_contract_heroboxserum = "0xaf6c9b30a9D8E3e0D27721B4B459d9a30dab4857";
   moralis_contract_superHeroMutantMoose =
     "0xfbC11196B2ea3529DadE0Ba744c3821784670ef0";
