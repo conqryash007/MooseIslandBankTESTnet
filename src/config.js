@@ -40,8 +40,8 @@ let ETHERSCAN_BASE_URI = "";
 // NETWORK SWITCHER
 // NETWORK SWITCHER
 
-let network = "rinkeby";
-// let network = "mainnet";
+// let network = "rinkeby";
+let network = "mainnet";
 
 // NETWORK SWITCHER
 // NETWORK SWITCHER
