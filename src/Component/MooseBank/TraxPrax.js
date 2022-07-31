@@ -139,6 +139,8 @@ const TraxPrax = ({ pricesPrax, availableToMint }) => {
       notifyInfo("Please wait for confirmation");
       await mintTransaction.wait();
       notifySuccess("Please reload after sometime to get the minted tokens");
+
+      window.location.reload();
     } catch (e) {
       console.log("mintError=>", e);
       console.log("traxPAx -----");
@@ -170,16 +172,7 @@ const TraxPrax = ({ pricesPrax, availableToMint }) => {
       <div className="pb-5">
         <div className="flex justify-center">
           <div className="text-5xl font-semibold text-white">
-            {availableToMint / 1000000 > 1 ? (
-              <>
-                <div style={{ display: "flex" }}>
-                  <CountUp end={availableToMint / 1000000} />
-                  <span className="pl-1">{" M"}</span>
-                </div>
-              </>
-            ) : (
-              <DecimalCounter value={availableToMint} />
-            )}
+            <DecimalCounter value={availableToMint} />
           </div>
         </div>
         <p className="text-center semi-text">TRAX Available To Mint</p>

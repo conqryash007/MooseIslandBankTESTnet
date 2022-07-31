@@ -26,6 +26,7 @@ function App() {
   const [pricesPrax, setPricesPrax] = useState([]);
   const [burnedTrax, setBurnedTrax] = useState(0);
   const [availableToMint, setAvailableToMint] = useState(10000000000);
+  const [allDataLoaded, setAllDataLoaded] = useState(false);
 
   const { Moralis, account } = useMoralis();
 
@@ -85,6 +86,7 @@ function App() {
             .hasClaimed(account)
             .call();
           setHasClaimed(hasClaimed);
+          console.log(hasClaimed);
 
           // ---------CLAIMABLE COUNT---------
           // ---------------------------------
@@ -198,6 +200,8 @@ function App() {
           console.log((finalCap - totalSupply).toFixed(2));
 
           setAvailableToMint((finalCap - totalSupply).toFixed(2));
+
+          setAllDataLoaded(true);
         }
       } catch (err) {
         console.log("APP -----");
@@ -221,6 +225,7 @@ function App() {
         setHasClaimed={setHasClaimed}
         bonus={bonus}
         burnedTrax={burnedTrax}
+        allDataLoaded={allDataLoaded}
       ></MooseBankHero>
       <Trax
         ownedTrax={ownedTrax}
@@ -229,6 +234,7 @@ function App() {
         perDayTrax={perDayTrax}
         burnedTrax={burnedTrax}
         hasClaimed={claim}
+        availableToMint={availableToMint}
       ></Trax>
       <TraxPrax
         pricesPrax={pricesPrax}

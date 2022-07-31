@@ -18,11 +18,12 @@ const MooseBankHero = ({
   bonus,
   burnedTrax,
   setHasClaimed,
+  allDataLoaded,
 }) => {
   const { Moralis } = useMoralis();
 
   const claimBonusTrax = async () => {
-    if (paramClaim && hashedAccount) {
+    if (allDataLoaded && hashedAccount) {
       let hexClaimVal = Number(paramClaim * 10 ** 18).toString(16);
       hexClaimVal = `${hexClaimVal}`;
       if (hexClaimVal.length % 2 !== 0) {
@@ -61,6 +62,7 @@ const MooseBankHero = ({
         // toastify #2
         notifySuccess("Successfully Claimed Bonus Trax");
         setHasClaimed(true);
+        window.location.reload();
       } catch (err) {
         console.log("mintError=>", err);
         console.log("bankhero -----");

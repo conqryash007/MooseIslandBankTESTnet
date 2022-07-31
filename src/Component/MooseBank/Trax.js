@@ -18,6 +18,7 @@ const Trax = ({
   hashedAccount,
   burnedTrax,
   hasClaimed,
+  availableToMint,
 }) => {
   const { Moralis } = useMoralis();
 
@@ -68,6 +69,8 @@ const Trax = ({
         notifyInfo("Please wait for confirmation");
         await mintTransaction.wait();
         notifySuccess("Please reload after sometime to get the minted tokens");
+
+        window.location.reload();
       } catch (e) {
         console.log("mintError=>", e);
         console.log("TRAX-----");
@@ -93,13 +96,43 @@ const Trax = ({
         </p>
       </div>
       {hasClaimed ? (
-        <div className="p-5">
-          <div className="flex justify-center ">
-            <p className="text-5xl font-semibold text-white">
-              <CountUp end={burnedTrax} />
-            </p>
+        <div className="flex justify-center mt-10 mb-5">
+          <div className="grid grid-cols-1 lg:grid-cols-3  w-9/12 gap-y-10">
+            <div>
+              <div className="flex justify-center">
+                <p className="text-5xl font-semibold text-white">
+                  <CountUp end={10} />B
+                </p>
+              </div>
+              <p className="text-center semi-text">Total Supply Of Trax</p>
+            </div>
+
+            <div className="separator separator-cont ">
+              <div className="flex justify-center">
+                <p className="text-5xl font-semibold text-white">
+                  {availableToMint / 1000000 > 1 ? (
+                    <>
+                      <div style={{ display: "flex" }}>
+                        <CountUp end={availableToMint / 1000000} />
+                        <span className="pl-1">{" M"}</span>
+                      </div>
+                    </>
+                  ) : (
+                    <DecimalCounter value={availableToMint} />
+                  )}
+                </p>
+              </div>
+              <p className=" text-center semi-text">TRAX Available To Mint</p>
+            </div>
+            <div>
+              <div className="flex justify-center">
+                <p className="text-5xl font-semibold text-white">
+                  <DecimalCounter value={burnedTrax} />
+                </p>
+              </div>
+              <p className=" text-center semi-text">TRAX Burned</p>
+            </div>
           </div>
-          <p className=" text-center semi-text">TRAX Tokens Burned</p>
         </div>
       ) : (
         <></>
