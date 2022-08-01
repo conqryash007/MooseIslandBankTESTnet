@@ -28,6 +28,11 @@
   font-weight: 400;
 }
 
+.common-box {
+  border-width: 2px;
+  border-color: aliceblue;
+}
+
 @media only screen and (max-width: 600px) {
   .claim-btn {
     margin: 20px;
@@ -35,5 +40,8 @@
   .claim-text {
     padding: 10px;
     font-weight: 550;
+  }
+  .common-box {
+    margin: 20px;
   }
 }

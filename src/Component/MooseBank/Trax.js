@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import CountUp from "react-countup";
-import "./Trax.css";
 
 import DecimalCounter from "./DecimalCounter";
 
+import "./Trax.css";
 //
 import { useMoralis } from "react-moralis";
 import { FULLABI } from "./FULLABI";
@@ -83,19 +83,109 @@ const Trax = ({
     }
   };
 
+  const numberWithCommas = (x) => {
+    var parts = x.toString().split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return parts.join(".");
+  };
+
   return (
     <div className="trax-bg">
       <div>
-        <h1 className="text-7xl text-white font-semibold text-center main-text-bal">
-          Island Bank Balance
+        <h1 className="text-7xl underline text-white font-semibold text-center main-text-bal">
+          ISLAND BANK BALANCE
         </h1>
-        <p className="text-center para-text earn-trax-text">
-          Each day you hold our collections, you will earn Moose TRAX. For each
-          OG Moose you hold, you earn 10 Per Day. For each Mini Moose you hold,
-          you earn 15 Per Day.
-        </p>
       </div>
-      {hasClaimed ? (
+      <div className="new-main-container-1">
+        <div className="new-sub-container">
+          <div className="separator separator-cont">
+            <button
+              disabled={true}
+              className="dashboard px-10 py-5 font-semibold btn-style-sub"
+            >
+              TOTAL TRAX
+            </button>
+          </div>
+          <div className="text-5xl pt-2 font-semibold text-white number-common-mob ">
+            {numberWithCommas(10000000000)}
+          </div>
+        </div>
+        <div className="new-sub-container">
+          <div className="separator separator-cont">
+            <button
+              disabled={true}
+              className="dashboard px-10 py-5 font-semibold btn-style-sub"
+            >
+              AVAILABLE
+            </button>
+          </div>
+          <div className="text-5xl pt-2 number-common-mob font-semibold text-white">
+            {numberWithCommas(availableToMint)}
+          </div>
+        </div>
+        <div className="new-sub-container bottom-border">
+          <div className="separator separator-cont">
+            <button
+              disabled={true}
+              className="dashboard px-10 py-5 font-semibold btn-style-sub"
+            >
+              MINTED
+            </button>
+          </div>
+          <div className="text-5xl pt-2 number-common-mob font-semibold text-white">
+            {numberWithCommas((10000000000 - availableToMint).toFixed(2))}
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h1 className="text-7xl underline text-white font-semibold text-center main-text-bal pt-10">
+          PERSONAL TRAX BALANCE
+        </h1>
+        <div className="new-main-container-1">
+          <div className="new-sub-container cont-2">
+            <div className="separator separator-cont">
+              <button
+                disabled={true}
+                className="dashboard px-10 py-5 font-semibold btn-style-sub"
+              >
+                TRAX OWNED IN WALLET
+              </button>
+            </div>
+            <div className="text-5xl pt-2 font-semibold text-white number-common-mob ">
+              {numberWithCommas(ownedTrax)}
+            </div>
+          </div>
+          <div className="new-sub-container cont-2">
+            <div className="separator separator-cont">
+              <button
+                disabled={disableBtn || disableLowBal}
+                onClick={withdrawTrax}
+                className="dashboard px-10 py-5 font-semibold btn-style-sub"
+              >
+                WITHDRAW TRAX TOKENS
+              </button>
+            </div>
+            <div className="text-5xl pt-2 number-common-mob font-semibold text-white">
+              {numberWithCommas(available.toFixed(2))}
+            </div>
+          </div>
+          <div className="new-sub-container cont-2 bottom-border">
+            <div className="separator separator-cont">
+              <button
+                disabled={true}
+                className="dashboard px-10 py-5 font-semibold btn-style-sub"
+              >
+                TRAX EARNED PER DAY
+              </button>
+            </div>
+            <div className="text-5xl pt-2 number-common-mob font-semibold text-white">
+              {numberWithCommas(Math.floor(perDayTrax))}
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* {hasClaimed ? (
         <div className="flex justify-center mt-10 mb-5">
           <div className="grid grid-cols-1 lg:grid-cols-3  w-9/12 gap-y-10">
             <div>
@@ -112,10 +202,10 @@ const Trax = ({
                 <p className="text-5xl font-semibold text-white">
                   {availableToMint / 1000000 > 1 ? (
                     <>
-                      <div style={{ display: "flex" }}>
+                      <p style={{ display: "flex" }}>
                         <CountUp end={availableToMint / 1000000} />
                         <span className="pl-1">{" M"}</span>
-                      </div>
+                      </p>
                     </>
                   ) : (
                     <DecimalCounter value={availableToMint} />
@@ -174,7 +264,7 @@ const Trax = ({
             <p className=" text-center semi-text">Total TRAX Owned</p>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

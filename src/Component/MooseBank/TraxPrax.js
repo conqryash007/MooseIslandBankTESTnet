@@ -111,7 +111,6 @@ const TraxPrax = ({ pricesPrax, availableToMint }) => {
         return curr;
       });
       setCardData(tempCardData);
-      console.log(tempCardData);
     }
   }, [pricesPrax]);
   const { Moralis } = useMoralis();
@@ -154,7 +153,7 @@ const TraxPrax = ({ pricesPrax, availableToMint }) => {
 
   return (
     <div className="trax_prax_bg">
-      <div className="flex justify-center mb-10 mt-10">
+      <div className="flex justify-center mb-10">
         <div className=" w-9/12">
           <h5 className="text-center text-xl text-white traxprax-text-1">
             Moose Society Island Bank
@@ -167,15 +166,6 @@ const TraxPrax = ({ pricesPrax, availableToMint }) => {
             have some on hand? This is where you can get some extra.
           </p>
         </div>
-      </div>
-
-      <div className="pb-5">
-        <div className="flex justify-center">
-          <div className="text-5xl font-semibold text-white">
-            <DecimalCounter value={availableToMint} />
-          </div>
-        </div>
-        <p className="text-center semi-text">TRAX Available To Mint</p>
       </div>
 
       <div className="flex justify-center mb-20">

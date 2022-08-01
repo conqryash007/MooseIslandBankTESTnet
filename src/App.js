@@ -225,6 +225,7 @@ function App() {
         bonus={bonus}
         burnedTrax={burnedTrax}
         allDataLoaded={allDataLoaded}
+        available={availableClaim}
       ></MooseBankHero>
       <Trax
         ownedTrax={ownedTrax}

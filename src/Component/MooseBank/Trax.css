@@ -6,10 +6,66 @@
   margin-bottom: 30px;
 }
 
+.new-main-container-1 {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  margin: auto;
+  margin-top: 30px;
+}
+.bottom-border {
+  /* border-width: 0px 0px 2px 0px; */
+  border-bottom-width: 2px;
+}
+.new-sub-container {
+  display: flex;
+  justify-content: space-around;
+
+  border-top-width: 2px;
+  border-left-width: 2px;
+  border-right-width: 2px;
+  border-color: #9e9aa7;
+  padding: 20px 0 20px 0;
+  font-family: "Rajdhani", sans-serif;
+}
+
+.btn-style-sub {
+  margin: 0 20px 0 20px;
+}
+
+.separator-cont {
+  display: flex;
+  justify-content: center;
+  width: 33vw;
+}
+
+.number-common-mob {
+  width: 46%;
+  text-align: center;
+}
+
+.cont-2 {
+  flex-direction: row-reverse;
+}
+
 @media only screen and (max-width: 600px) {
+  .new-main-container-1 {
+    width: 90%;
+  }
+  .new-sub-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .number-common-mob {
+    font-size: 10vw;
+    width: 90%;
+  }
   .main-text-bal {
     font-size: 6vw;
     padding-bottom: 20px;
+  }
+  .main-text-bal {
+    font-size: 9vw;
   }
   .earn-trax-text {
     padding: 10px;
@@ -17,6 +73,7 @@
   }
   .separator-cont {
     padding: 20px;
+    width: 70vw;
   }
   .separator {
     border: none;
