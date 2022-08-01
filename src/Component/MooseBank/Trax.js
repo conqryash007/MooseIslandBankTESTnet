@@ -153,7 +153,40 @@ const Trax = ({
         <h1 className="text-7xl underline text-white font-semibold text-center main-text-bal pt-10">
           PERSONAL TRAX BALANCE
         </h1>
-        <div className="new-main-container-1">
+
+        <div className="personal-trax-main">
+          <div className="pt-sub-1">
+            <div className="block-pt margin1">
+              <div className="text-5xl pt-2  font-semibold text-white">
+                {numberWithCommas(Math.floor(perDayTrax))}
+              </div>
+              <p className="sub-line-pt">TRAX EARNED PER DAY</p>
+            </div>
+            <div className="block-pt margin2">
+              <div className="text-5xl pt-2 font-semibold text-white  ">
+                {numberWithCommas(ownedTrax)}
+              </div>
+              <p className="sub-line-pt">TRAX OWNED IN WALLET</p>
+            </div>
+          </div>
+          <div className="pt-sub-2">
+            <div className="block-pt-2">
+              <div className="text-5xl pt-2  font-semibold text-white">
+                {numberWithCommas(available.toFixed(2))}
+              </div>
+              <p className="sub-line-pt">WITHDRAW TRAX TOKENS</p>
+              <button
+                disabled={disableBtn || disableLowBal}
+                onClick={withdrawTrax}
+                className="dashboard px-10 py-5 font-semibold  pt-btn"
+              >
+                WITHDRAW TRAX TOKENS
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* <div className="new-main-container-1">
           <div className="new-sub-container cont-2">
             <div className="separator separator-cont">
               <button
@@ -194,7 +227,7 @@ const Trax = ({
               {numberWithCommas(Math.floor(perDayTrax))}
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
       {/* {hasClaimed ? (
         <div className="flex justify-center mt-10 mb-5">

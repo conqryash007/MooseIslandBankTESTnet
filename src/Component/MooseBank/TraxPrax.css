@@ -45,6 +45,10 @@
 }
 
 @media only screen and (max-width: 600px) {
+  .text-prax-main {
+    padding: 0;
+    width: 80vw;
+  }
   .traxprax-text-1 {
     font-size: 4vw;
   }

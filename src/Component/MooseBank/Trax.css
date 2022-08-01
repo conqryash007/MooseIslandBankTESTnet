@@ -2,8 +2,8 @@
   background-image: url("../MooseBank/images/bg-hero-home.webp");
   background-position: center;
   padding-top: 100px;
-  padding-bottom: 100px;
-  margin-bottom: 30px;
+  padding-bottom: 210px;
+  /* margin-bottom: 30px; */
 }
 
 .new-main-container-1 {
@@ -13,6 +13,62 @@
   margin: auto;
   margin-top: 30px;
 }
+.personal-trax-main {
+  font-family: "Rajdhani", sans-serif;
+  width: 70%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  border-width: 2px;
+  border-color: #9e9aa7;
+  margin-top: 50px;
+}
+.block-pt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-width: 2px;
+  border-color: #9e9aa7;
+  width: 50%;
+  padding: 20px;
+}
+.margin1 {
+  margin: 10px 2px 10px 10px;
+}
+.margin2 {
+  margin: 10px 10px 10px 2px;
+}
+.sub-line-pt {
+  font-family: "Rajdhani", sans-serif;
+  color: #ffffff99;
+  font-weight: 600;
+  font-size: 20px;
+  padding-top: 20px;
+}
+.block-pt-2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-width: 2px;
+  border-color: #9e9aa7;
+  width: 100%;
+  justify-content: center;
+  margin: 5px 10px 15px 10px;
+  padding: 30px;
+}
+.pt-btn {
+  margin-top: 20px;
+}
+.pt-sub-1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.pt-sub-2 {
+  display: flex;
+  justify-content: center;
+}
+
 .bottom-border {
   /* border-width: 0px 0px 2px 0px; */
   border-bottom-width: 2px;
@@ -49,6 +105,17 @@
 }
 
 @media only screen and (max-width: 600px) {
+  .personal-trax-main {
+    width: 90%;
+  }
+  .pt-sub-1 {
+    flex-direction: column;
+  }
+  .block-pt {
+    width: 88%;
+    margin: 20px;
+  }
+
   .new-main-container-1 {
     width: 90%;
   }
