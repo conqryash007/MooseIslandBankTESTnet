@@ -27,4 +27,14 @@ const abiGetBurnedTrax = [
   },
 ];
 
-export { abiOG, abiMini, abiGetBurnedTrax };
+const abiTotalGetBurnedSB = [
+  {
+    inputs: [{ internalType: "uint256", name: "id", type: "uint256" }],
+    name: "totalSupply",
+    outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+    stateMutability: "view",
+    type: "function",
+  },
+];
+
+export { abiOG, abiMini, abiGetBurnedTrax, abiTotalGetBurnedSB };

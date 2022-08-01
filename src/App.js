@@ -5,7 +5,12 @@ import MooseBankHero from "./Component/MooseBank/MooseBankHero";
 import Header from "./Component/Header/Header";
 import Trax from "./Component/MooseBank/Trax";
 import TraxPrax from "./Component/MooseBank/TraxPrax";
-import { abiOG, abiMini, abiGetBurnedTrax } from "./getSuppyABI";
+import {
+  abiOG,
+  abiMini,
+  abiGetBurnedTrax,
+  abiTotalGetBurnedSB,
+} from "./getSuppyABI";
 //
 import Web3 from "web3/dist/web3.min.js";
 import { useMoralis } from "react-moralis";
@@ -25,6 +30,7 @@ function App() {
   const [bonus, setBonus] = useState(0);
   const [pricesPrax, setPricesPrax] = useState([]);
   const [burnedTrax, setBurnedTrax] = useState(0);
+  const [totalBurnedTraxSB, setTotalBurnedTraxSB] = useState(0);
   const [availableToMint, setAvailableToMint] = useState(10000000000);
   const [allDataLoaded, setAllDataLoaded] = useState(false);
 
@@ -186,6 +192,61 @@ function App() {
           setBurnedTrax(traxBurnedRes);
         }
 
+        // ------TOTAL TRAX BURNED---------------
+        // -----------USING HEROBOX AND SERUM COUNT------------------
+        if (account) {
+          const optionHB = {
+            abi: abiTotalGetBurnedSB,
+            functionName: "totalSupply",
+            chain: CONFIG.chainID,
+            contractAddress: CONFIG.smart_contract_heroboxserum,
+            params: {
+              id: 0,
+            },
+          };
+          const optionS1 = {
+            abi: abiTotalGetBurnedSB,
+            functionName: "totalSupply",
+            chain: CONFIG.chainID,
+            contractAddress: CONFIG.smart_contract_heroboxserum,
+            params: {
+              id: 1,
+            },
+          };
+          const optionS2 = {
+            abi: abiTotalGetBurnedSB,
+            functionName: "totalSupply",
+            chain: CONFIG.chainID,
+            contractAddress: CONFIG.smart_contract_heroboxserum,
+            params: {
+              id: 2,
+            },
+          };
+          const optionS3 = {
+            abi: abiTotalGetBurnedSB,
+            functionName: "totalSupply",
+            chain: CONFIG.chainID,
+            contractAddress: CONFIG.smart_contract_heroboxserum,
+            params: {
+              id: 3,
+            },
+          };
+
+          const c0z = await Moralis.executeFunction(optionHB);
+          const c1z = await Moralis.executeFunction(optionS1);
+          const c2z = await Moralis.executeFunction(optionS2);
+          const c3z = await Moralis.executeFunction(optionS3);
+
+          const c0 = parseInt(c0z._hex, 16);
+          const c1 = parseInt(c1z._hex, 16);
+          const c2 = parseInt(c2z._hex, 16);
+          const c3 = parseInt(c3z._hex, 16);
+
+          const burned = c0 * 50000 + c1 * 100000 + c2 * 250000 + c3 * 500000;
+
+          setTotalBurnedTraxSB(burned);
+        }
+
         if (account) {
           // -------------------------------
           // --- TOTAL AVAILABLE TO MINT ---
@@ -235,6 +296,7 @@ function App() {
         burnedTrax={burnedTrax}
         hasClaimed={claim}
         availableToMint={availableToMint}
+        totalBurnedSB={totalBurnedTraxSB}
       ></Trax>
       <TraxPrax
         pricesPrax={pricesPrax}

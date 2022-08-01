@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from "react";
-import CountUp from "react-countup";
-
-import DecimalCounter from "./DecimalCounter";
 
 import "./Trax.css";
 //
@@ -19,6 +16,7 @@ const Trax = ({
   burnedTrax,
   hasClaimed,
   availableToMint,
+  totalBurnedSB,
 }) => {
   const { Moralis } = useMoralis();
 
@@ -123,7 +121,7 @@ const Trax = ({
             {numberWithCommas(availableToMint)}
           </div>
         </div>
-        <div className="new-sub-container bottom-border">
+        <div className="new-sub-container">
           <div className="separator separator-cont">
             <button
               disabled={true}
@@ -134,6 +132,19 @@ const Trax = ({
           </div>
           <div className="text-5xl pt-2 number-common-mob font-semibold text-white">
             {numberWithCommas((10000000000 - availableToMint).toFixed(2))}
+          </div>
+        </div>
+        <div className="new-sub-container bottom-border">
+          <div className="separator separator-cont">
+            <button
+              disabled={true}
+              className="dashboard px-10 py-5 font-semibold btn-style-sub"
+            >
+              BURNED
+            </button>
+          </div>
+          <div className="text-5xl pt-2 number-common-mob font-semibold text-white">
+            {numberWithCommas(totalBurnedSB)}
           </div>
         </div>
       </div>

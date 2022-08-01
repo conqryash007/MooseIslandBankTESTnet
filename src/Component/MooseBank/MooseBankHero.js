@@ -1,7 +1,6 @@
 import React from "react";
 import "./MooseBankHero.css";
 import Countdown from "react-countdown";
-import CountUp from "react-countup";
 
 import { useMoralis } from "react-moralis";
 import { FULLABI } from "./FULLABI";
@@ -173,7 +172,7 @@ const MooseBankHero = ({
               <div>
                 <div className="flex justify-center ">
                   <p className="text-5xl font-semibold text-white ">
-                    {numberWithCommas(available)}
+                    {numberWithCommas(available.toFixed(2))}
                   </p>
                 </div>
                 <p className=" text-center semi-text">TRAX Tokens Earned</p>
