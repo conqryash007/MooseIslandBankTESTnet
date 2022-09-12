@@ -9,7 +9,8 @@ import {
   abiOG,
   abiMini,
   abiGetBurnedTrax,
-  abiTotalGetBurnedSB,
+  // abiTotalGetBurnedSB,
+  SHMMABI,
 } from "./getSuppyABI";
 //
 import Web3 from "web3/dist/web3.min.js";
@@ -95,7 +96,7 @@ function App() {
 
           // ---------CLAIMABLE COUNT---------
           // ---------------------------------
-          const url = `https://trax-etherscan-api.herokuapp.com/api/${account}`;
+          const url = `https://moose-backend-new-production.up.railway.app/islandbank/api/${account}`;
           const response = await axios.get(url);
 
           const finalResponse = Number(response.data.finalTotalTrax);
@@ -196,53 +197,46 @@ function App() {
         // -----------USING HEROBOX AND SERUM COUNT------------------
         if (account) {
           const optionHB = {
-            abi: abiTotalGetBurnedSB,
-            functionName: "totalSupply",
+            abi: SHMMABI,
+            functionName: "totalHeoBoxBurned",
             chain: CONFIG.chainID,
-            contractAddress: CONFIG.smart_contract_heroboxserum,
-            params: {
-              id: 0,
-            },
+            contractAddress: CONFIG.smart_contract_superHeroMutantMoose,
           };
           const optionS1 = {
-            abi: abiTotalGetBurnedSB,
-            functionName: "totalSupply",
+            abi: SHMMABI,
+            functionName: "totalSerumX1Burned",
             chain: CONFIG.chainID,
-            contractAddress: CONFIG.smart_contract_heroboxserum,
-            params: {
-              id: 1,
-            },
+            contractAddress: CONFIG.smart_contract_superHeroMutantMoose,
           };
           const optionS2 = {
-            abi: abiTotalGetBurnedSB,
-            functionName: "totalSupply",
+            abi: SHMMABI,
+            functionName: "totalSerumX2Burned",
             chain: CONFIG.chainID,
-            contractAddress: CONFIG.smart_contract_heroboxserum,
-            params: {
-              id: 2,
-            },
+            contractAddress: CONFIG.smart_contract_superHeroMutantMoose,
           };
           const optionS3 = {
-            abi: abiTotalGetBurnedSB,
-            functionName: "totalSupply",
+            abi: SHMMABI,
+            functionName: "totalSerumX3Burned",
             chain: CONFIG.chainID,
-            contractAddress: CONFIG.smart_contract_heroboxserum,
-            params: {
-              id: 3,
-            },
+            contractAddress: CONFIG.smart_contract_superHeroMutantMoose,
+          };
+          const optionS4 = {
+            abi: SHMMABI,
+            functionName: "totaltraxBurned",
+            chain: CONFIG.chainID,
+            contractAddress: CONFIG.smart_contract_superHeroMutantMoose,
           };
 
-          const c0z = await Moralis.executeFunction(optionHB);
-          const c1z = await Moralis.executeFunction(optionS1);
-          const c2z = await Moralis.executeFunction(optionS2);
-          const c3z = await Moralis.executeFunction(optionS3);
+          const c0 = await Moralis.executeFunction(optionHB);
+          const c1 = await Moralis.executeFunction(optionS1);
+          const c2 = await Moralis.executeFunction(optionS2);
+          const c3 = await Moralis.executeFunction(optionS3);
+          const c4z = await Moralis.executeFunction(optionS4);
 
-          const c0 = parseInt(c0z._hex, 16);
-          const c1 = parseInt(c1z._hex, 16);
-          const c2 = parseInt(c2z._hex, 16);
-          const c3 = parseInt(c3z._hex, 16);
+          const c4 = web3.utils.fromWei(c4z._hex);
 
-          const burned = c0 * 50000 + c1 * 100000 + c2 * 250000 + c3 * 500000;
+          const burned =
+            c0 * 50000 + c1 * 100000 + c2 * 250000 + c3 * 500000 + Number(c4);
 
           setTotalBurnedTraxSB(burned);
         }

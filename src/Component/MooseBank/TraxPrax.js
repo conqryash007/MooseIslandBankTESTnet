@@ -15,8 +15,6 @@ import { FULLABI } from "./FULLABI";
 import { CONFIG } from "./../../config";
 //
 import { notifyError, notifyInfo, notifySuccess } from "./ToastFunction";
-import DecimalCounter from "./DecimalCounter";
-import CountUp from "react-countup";
 
 const TraxPrax = ({ pricesPrax, availableToMint }) => {
   const [cardData, setCardData] = useState([
@@ -113,6 +111,7 @@ const TraxPrax = ({ pricesPrax, availableToMint }) => {
       setCardData(tempCardData);
     }
   }, [pricesPrax]);
+
   const { Moralis } = useMoralis();
 
   const buyTrax = async (prc) => {
