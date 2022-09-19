@@ -80,9 +80,67 @@ function App() {
           const ogMooseBalance = await Moralis.executeFunction(optionOgMoose);
           const countOg = Number(Number(parseInt(ogMooseBalance._hex, 16)));
 
+          // -----------different heros COUNT---------
+          // -----------------------------------------
+          const total = {
+            abi: SHMMABI,
+            functionName: "balanceOf",
+            chain: CONFIG.chainID,
+            contractAddress: CONFIG.smart_contract_superHeroMutantMoose,
+            params: {
+              owner: account,
+            },
+          };
+          const t = await Moralis.executeFunction(total);
+          const imax = parseInt(t._hex);
+
+          const optionHeroMoose = {
+            abi: SHMMABI,
+            functionName: "tokenOfOwnerByIndex",
+            chain: CONFIG.chainID,
+            contractAddress: CONFIG.smart_contract_superHeroMutantMoose,
+            params: {
+              owner: account,
+              index: 0,
+            },
+          };
+
+          const promises = [];
+
+          for (let i = 0; i < imax; i++) {
+            optionHeroMoose.params.index = i;
+            promises.push(Moralis.executeFunction(optionHeroMoose));
+          }
+
+          let res = await Promise.all(promises);
+          res = res.map((curr) => parseInt(curr._hex));
+
+          const inc = [
+            627, 640, 679, 688, 705, 740, 750, 800, 819, 840, 880, 900, 921,
+            940, 979, 986, 1000, 1025, 1050, 1100, 1125, 1150, 1177, 1234, 1250,
+          ];
+
+          let cEpic = 0,
+            cUltra = 0,
+            cLegen = 0;
+          res.forEach((curr) => {
+            if (Number(curr) < 626) {
+              cEpic += 1;
+            } else if (inc.includes(Number(curr) + 1)) {
+              cUltra += 1;
+            } else {
+              cLegen += 1;
+            }
+          });
+
           // ---------TRAX REWARD COUNT-------
           // ---------------------------------
-          const traxRewardPerDay = countMini * 15 + countOg * 10;
+          const traxRewardPerDay =
+            countMini * 15 +
+            countOg * 10 +
+            cEpic * 50 +
+            cUltra * 150 +
+            cLegen * 100;
           setPerDayTrax(traxRewardPerDay);
         }
 
